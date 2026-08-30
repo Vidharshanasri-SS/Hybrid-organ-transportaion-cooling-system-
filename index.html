@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>VEGA-CRYO | Hybrid Organ Transport Telemetry</title>
+  <title>Hybrid - Cryo | Autonomous Organ Cold-Chain System</title>
   
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Lucide Icons CDN -->
   <script src="https://unpkg.com/lucide@latest"></script>
-  <!-- Three.js CDN for 3D Pixelated/Voxel Organ Engine -->
+  <!-- Three.js CDN for 3D Micro-Dotted Organ Particle Engine -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <!-- OrbitControls for Three.js -->
   <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
@@ -22,17 +22,17 @@
       theme: {
         extend: {
           colors: {
-            cryo: {
-              900: '#060B12',
-              800: '#0C1626',
-              700: '#14243B',
-              600: '#1F3758',
-              cyan: '#00F0FF',
-              blue: '#38BDF8',
-              emerald: '#10B981',
+            theme: {
+              950: '#030A08', // Deepest Cryo-Green Void
+              900: '#061510', // Deep Project Pine
+              850: '#0A2019', // Card Base
+              800: '#0E2C22', // Card Border / Surface
+              700: '#143C2E', // Accent Surface
+              emerald: '#00F5A0', // High-Tech Neon Emerald
+              teal: '#10B981', // Medical Green
+              cyan: '#38E1FF', // Cryo Frost
               amber: '#F59E0B',
-              rose: '#EF4444',
-              accent: '#0284C7'
+              rose: '#EF4444'
             }
           },
           fontFamily: {
@@ -45,10 +45,10 @@
 
   <style>
     @keyframes pulseGlow {
-      0%, 100% { box-shadow: 0 0 15px rgba(0, 240, 255, 0.25); }
-      50% { box-shadow: 0 0 30px rgba(0, 240, 255, 0.6); }
+      0%, 100% { box-shadow: 0 0 15px rgba(0, 245, 160, 0.2); }
+      50% { box-shadow: 0 0 28px rgba(0, 245, 160, 0.45); }
     }
-    .cryo-glow {
+    .project-glow {
       animation: pulseGlow 3s infinite ease-in-out;
     }
     .custom-scroll::-webkit-scrollbar {
@@ -56,41 +56,41 @@
       height: 5px;
     }
     .custom-scroll::-webkit-scrollbar-track {
-      background: rgba(12, 22, 38, 0.8);
+      background: rgba(6, 21, 16, 0.8);
     }
     .custom-scroll::-webkit-scrollbar-thumb {
-      background: #1F3758;
+      background: #143C2E;
       border-radius: 4px;
     }
     .custom-scroll::-webkit-scrollbar-thumb:hover {
-      background: #00F0FF;
+      background: #00F5A0;
     }
     .scanline {
-      background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0, 240, 255, 0.05) 50%, rgba(0, 240, 255, 0.05));
+      background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0, 245, 160, 0.04) 50%, rgba(0, 245, 160, 0.04));
       background-size: 100% 4px;
     }
   </style>
 </head>
 
-<body class="bg-cryo-900 text-slate-100 min-h-screen font-sans antialiased selection:bg-cryo-cyan selection:text-cryo-900 custom-scroll">
+<body class="bg-theme-950 text-slate-100 min-h-screen font-sans antialiased selection:bg-theme-emerald selection:text-theme-950 custom-scroll">
 
   <!-- ========================================================================= -->
-  <!-- 1. AUTHENTICATION MODAL / PAGE OVERLAY                                    -->
+  <!-- 1. AUTHENTICATION MODAL / DISPATCH ACCESS SCREEN                          -->
   <!-- ========================================================================= -->
-  <div id="authOverlay" class="fixed inset-0 z-50 bg-cryo-900/95 backdrop-blur-xl flex items-center justify-center p-4">
-    <div class="w-full max-w-md bg-cryo-800 border border-cryo-600/60 rounded-2xl p-8 shadow-2xl relative overflow-hidden cryo-glow">
-      <div class="absolute -top-16 -right-16 w-40 h-40 bg-cryo-cyan/10 rounded-full blur-3xl pointer-events-none"></div>
-      <div class="absolute -bottom-16 -left-16 w-40 h-40 bg-cryo-blue/10 rounded-full blur-3xl pointer-events-none"></div>
+  <div id="authOverlay" class="fixed inset-0 z-50 bg-theme-950/95 backdrop-blur-xl flex items-center justify-center p-4">
+    <div class="w-full max-w-md bg-theme-900 border border-theme-700/80 rounded-3xl p-8 shadow-2xl relative overflow-hidden project-glow">
+      <div class="absolute -top-20 -right-20 w-48 h-48 bg-theme-emerald/10 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="absolute -bottom-20 -left-20 w-48 h-48 bg-theme-cyan/10 rounded-full blur-3xl pointer-events-none"></div>
 
       <div class="text-center mb-8">
-        <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-cryo-700/80 border border-cryo-cyan/40 mb-3 text-cryo-cyan shadow-lg">
+        <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-theme-800 border border-theme-emerald/40 mb-3 text-theme-emerald shadow-lg">
           <i data-lucide="shield-check" class="w-8 h-8"></i>
         </div>
-        <h1 class="text-2xl font-black tracking-wider text-white">VEGA-CRYO PORTAL</h1>
-        <p class="text-xs text-cryo-cyan/80 tracking-widest font-mono uppercase mt-1">Autonomous Organ Cold-Chain System</p>
-        <span class="inline-block mt-2 px-2.5 py-0.5 text-[10px] font-mono font-semibold rounded bg-cryo-700 text-slate-300 border border-slate-700">
-          POWERED BY INDIGENOUS VEGA RISC-V SoC
-        </span>
+        <h1 class="text-2xl font-black tracking-wider text-white">Hybrid - Cryo</h1>
+        <p class="text-xs text-theme-emerald/80 tracking-widest font-mono uppercase mt-1">Autonomous Organ Transport Platform</p>
+        <div class="mt-2.5 inline-block px-3 py-1 text-[10px] font-mono font-bold rounded-full bg-theme-800 text-slate-300 border border-theme-700">
+          VEGATHON '26 • BIT & C-DAC VEGA RISC-V
+        </div>
       </div>
 
       <form id="loginForm" class="space-y-4" onsubmit="handleLogin(event)">
@@ -99,36 +99,36 @@
           <div class="relative">
             <i data-lucide="user" class="w-4 h-4 absolute left-3 top-3.5 text-slate-400"></i>
             <input type="text" id="authUsername" value="MED-DISPATCH-9402" required
-              class="w-full bg-cryo-900 border border-cryo-600 rounded-lg pl-10 pr-4 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-cryo-cyan transition font-mono" />
+              class="w-full bg-theme-950 border border-theme-700 rounded-xl pl-10 pr-4 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-theme-emerald transition font-mono" />
           </div>
         </div>
 
         <div>
-          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1.5">Security Passcode / Token</label>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-slate-300 mb-1.5">Security Passcode</label>
           <div class="relative">
             <i data-lucide="key-round" class="w-4 h-4 absolute left-3 top-3.5 text-slate-400"></i>
             <input type="password" id="authPassword" value="VEGA2026" required
-              class="w-full bg-cryo-900 border border-cryo-600 rounded-lg pl-10 pr-4 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-cryo-cyan transition font-mono" />
+              class="w-full bg-theme-950 border border-theme-700 rounded-xl pl-10 pr-4 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-theme-emerald transition font-mono" />
           </div>
         </div>
 
         <div class="flex items-center justify-between text-xs text-slate-400 py-1">
           <label class="flex items-center gap-2 cursor-pointer">
-            <input type="checkbox" checked class="rounded bg-cryo-900 border-cryo-600 text-cryo-cyan focus:ring-0">
+            <input type="checkbox" checked class="rounded bg-theme-950 border-theme-700 text-theme-emerald focus:ring-0">
             <span>Hardware Token Paired</span>
           </label>
-          <span class="text-cryo-cyan cursor-pointer hover:underline" onclick="simulateRfidBadge()">Tap RFID Badge</span>
+          <span class="text-theme-emerald cursor-pointer hover:underline font-mono" onclick="simulateRfidBadge()">Tap RFID Badge</span>
         </div>
 
         <button type="submit"
-          class="w-full py-3 px-4 bg-gradient-to-r from-cryo-cyan to-cryo-blue hover:from-cyan-400 hover:to-blue-500 text-cryo-900 font-bold rounded-lg shadow-lg shadow-cryo-cyan/20 transition transform active:scale-98 flex items-center justify-center gap-2">
+          class="w-full py-3 px-4 bg-gradient-to-r from-theme-emerald to-theme-teal hover:from-emerald-400 hover:to-teal-400 text-theme-950 font-bold rounded-xl shadow-lg shadow-theme-emerald/20 transition transform active:scale-98 flex items-center justify-center gap-2">
           <i data-lucide="lock-open" class="w-4 h-4"></i>
           <span>AUTHENTICATE DISPATCH NODE</span>
         </button>
       </form>
 
-      <div class="mt-6 pt-4 border-t border-cryo-700/60 text-center">
-        <p class="text-[11px] text-slate-400">Vegathon '26 | Team Micro-Mavericks | Bannari Amman Institute of Technology & C-DAC</p>
+      <div class="mt-6 pt-4 border-t border-theme-800 text-center">
+        <p class="text-[11px] text-slate-400 font-mono">Team Micro-Mavericks | Bannari Amman Institute of Technology & C-DAC</p>
       </div>
     </div>
   </div>
@@ -136,78 +136,82 @@
   <!-- ========================================================================= -->
   <!-- 2. MAIN HEADER & TOP-RIGHT USER PROFILE                                   -->
   <!-- ========================================================================= -->
-  <header class="sticky top-0 z-40 bg-cryo-900/90 backdrop-blur-md border-b border-cryo-700/80 px-4 lg:px-8 py-3">
+  <header class="sticky top-0 z-40 bg-theme-950/90 backdrop-blur-md border-b border-theme-800 px-4 lg:px-8 py-3">
     <div class="max-w-7xl mx-auto flex items-center justify-between">
       
       <!-- Brand & Navigation -->
       <div class="flex items-center gap-6">
         <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-xl bg-cryo-800 border border-cryo-cyan/50 flex items-center justify-center text-cryo-cyan shadow-md shadow-cryo-cyan/10">
+          <div class="w-10 h-10 rounded-xl bg-theme-900 border border-theme-emerald/50 flex items-center justify-center text-theme-emerald shadow-md shadow-theme-emerald/10">
             <i data-lucide="snowflake" class="w-6 h-6"></i>
           </div>
           <div>
             <div class="flex items-center gap-2">
-              <span class="font-black text-lg tracking-wider text-white">VEGA<span class="text-cryo-cyan">-CRYO</span></span>
-              <span class="px-1.5 py-0.2 text-[10px] font-mono bg-cryo-cyan/20 text-cryo-cyan rounded border border-cryo-cyan/30">VEGA ET1031</span>
+              <span class="font-black text-xl tracking-wider text-white">Hybrid <span class="text-theme-emerald">- Cryo</span></span>
+              <span class="px-1.5 py-0.5 text-[9px] font-mono bg-theme-emerald/15 text-theme-emerald rounded border border-theme-emerald/30 font-bold">VEGA RISC-V</span>
             </div>
-            <p class="text-[11px] text-slate-400 hidden sm:block">Hybrid Autonomous Organ Transport Platform</p>
+            <p class="text-[11px] text-slate-400 hidden sm:block">Sensor-Driven Autonomous Cold-Chain</p>
           </div>
         </div>
 
         <!-- Navigation Tabs -->
-        <nav class="hidden md:flex items-center gap-1 bg-cryo-800/70 p-1 rounded-xl border border-cryo-700/60">
+        <nav class="hidden md:flex items-center gap-1 bg-theme-900/80 p-1 rounded-xl border border-theme-800">
           <button onclick="switchView('dashboard')" id="nav-dashboard"
-            class="px-4 py-1.5 rounded-lg text-xs font-semibold transition flex items-center gap-1.5 bg-cryo-cyan text-cryo-900 shadow">
+            class="px-4 py-1.5 rounded-lg text-xs font-semibold transition flex items-center gap-1.5 bg-theme-emerald text-theme-950 shadow font-bold">
             <i data-lucide="layout-dashboard" class="w-3.5 h-3.5"></i> Dashboard
           </button>
           <button onclick="switchView('about')" id="nav-about"
-            class="px-4 py-1.5 rounded-lg text-xs font-semibold text-slate-300 hover:text-white hover:bg-cryo-700/50 transition flex items-center gap-1.5">
+            class="px-4 py-1.5 rounded-lg text-xs font-semibold text-slate-300 hover:text-white hover:bg-theme-800 transition flex items-center gap-1.5">
             <i data-lucide="info" class="w-3.5 h-3.5"></i> About Us
           </button>
           <button onclick="switchView('services')" id="nav-services"
-            class="px-4 py-1.5 rounded-lg text-xs font-semibold text-slate-300 hover:text-white hover:bg-cryo-700/50 transition flex items-center gap-1.5">
+            class="px-4 py-1.5 rounded-lg text-xs font-semibold text-slate-300 hover:text-white hover:bg-theme-800 transition flex items-center gap-1.5">
             <i data-lucide="layers" class="w-3.5 h-3.5"></i> Our Services
+          </button>
+          <button onclick="switchView('contact')" id="nav-contact"
+            class="px-4 py-1.5 rounded-lg text-xs font-semibold text-slate-300 hover:text-white hover:bg-theme-800 transition flex items-center gap-1.5">
+            <i data-lucide="mail" class="w-3.5 h-3.5"></i> Contact Us
           </button>
         </nav>
       </div>
 
-      <!-- Right Controls & User Profile -->
+      <!-- Right Controls & Top Right User Profile -->
       <div class="flex items-center gap-3">
-        <!-- Live System Status Badge -->
-        <div class="hidden sm:flex items-center gap-2 px-3 py-1.5 bg-cryo-800 border border-cryo-700 rounded-lg text-xs font-mono">
-          <span class="w-2 h-2 rounded-full bg-cryo-emerald animate-ping"></span>
-          <span class="text-slate-300">SYSTEM:</span>
-          <span class="text-cryo-emerald font-bold">CRYOCONTROL ACTIVE</span>
+        <!-- Live Status Pulse -->
+        <div class="hidden sm:flex items-center gap-2 px-3 py-1.5 bg-theme-900 border border-theme-800 rounded-xl text-xs font-mono">
+          <span class="w-2 h-2 rounded-full bg-theme-emerald animate-ping"></span>
+          <span class="text-slate-400">VEGA:</span>
+          <span class="text-theme-emerald font-bold">AUTONOMOUS OK</span>
         </div>
 
         <!-- Top Right User Profile Dropdown -->
         <div class="relative">
-          <button onclick="toggleProfileMenu()" class="flex items-center gap-3 p-1.5 bg-cryo-800 hover:bg-cryo-700/80 border border-cryo-600/70 rounded-xl transition">
-            <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-cyan-600 to-blue-500 flex items-center justify-center text-white font-bold text-xs shadow">
+          <button onclick="toggleProfileMenu()" class="flex items-center gap-3 p-1.5 bg-theme-900 hover:bg-theme-800 border border-theme-700/80 rounded-xl transition">
+            <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-theme-teal to-theme-emerald flex items-center justify-center text-theme-950 font-bold text-xs shadow">
               DR
             </div>
             <div class="text-left hidden sm:block pr-1">
               <p class="text-xs font-bold text-white leading-tight">Dr. V. Sri S.</p>
-              <p class="text-[10px] text-cryo-cyan font-mono">Lead Transport Surgeon</p>
+              <p class="text-[10px] text-theme-emerald font-mono">Chief Organ Logistics</p>
             </div>
             <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-slate-400"></i>
           </button>
 
           <!-- Profile Dropdown Menu -->
-          <div id="profileDropdown" class="hidden absolute right-0 mt-2 w-64 bg-cryo-800 border border-cryo-600 rounded-xl shadow-2xl py-2 z-50">
-            <div class="px-4 py-2 border-b border-cryo-700">
+          <div id="profileDropdown" class="hidden absolute right-0 mt-2 w-64 bg-theme-900 border border-theme-700 rounded-2xl shadow-2xl py-2 z-50">
+            <div class="px-4 py-2 border-b border-theme-800">
               <p class="text-xs font-bold text-white">Dr. Vidharshana Sri S.</p>
               <p class="text-[11px] text-slate-400">Organ Recovery Unit #04</p>
-              <span class="inline-block mt-1 px-2 py-0.5 text-[9px] font-mono bg-emerald-500/20 text-emerald-300 rounded border border-emerald-500/30">
+              <span class="inline-block mt-1 px-2 py-0.5 text-[9px] font-mono bg-theme-emerald/20 text-theme-emerald rounded border border-theme-emerald/30">
                 DISPATCH CERTIFIED • ACTIVE
               </span>
             </div>
             <div class="py-1 text-xs text-slate-300">
-              <a href="#" class="flex items-center gap-2 px-4 py-2 hover:bg-cryo-700"><i data-lucide="shield" class="w-4 h-4 text-cryo-cyan"></i> Security Clearance Level 3</a>
-              <a href="#" class="flex items-center gap-2 px-4 py-2 hover:bg-cryo-700"><i data-lucide="cpu" class="w-4 h-4 text-cryo-cyan"></i> Connected to VEGA Node #1031</a>
-              <a href="#" class="flex items-center gap-2 px-4 py-2 hover:bg-cryo-700"><i data-lucide="file-text" class="w-4 h-4 text-cryo-cyan"></i> Clinical Transit Records</a>
+              <a href="#" class="flex items-center gap-2 px-4 py-2 hover:bg-theme-800"><i data-lucide="shield" class="w-4 h-4 text-theme-emerald"></i> Security Clearance Level 3</a>
+              <a href="#" class="flex items-center gap-2 px-4 py-2 hover:bg-theme-800"><i data-lucide="cpu" class="w-4 h-4 text-theme-emerald"></i> Paired VEGA ET1031 Board</a>
+              <a href="#" class="flex items-center gap-2 px-4 py-2 hover:bg-theme-800"><i data-lucide="file-text" class="w-4 h-4 text-theme-emerald"></i> Cryptographic Audit Trail</a>
             </div>
-            <div class="border-t border-cryo-700 pt-1">
+            <div class="border-t border-theme-800 pt-1">
               <button onclick="handleLogout()" class="w-full text-left flex items-center gap-2 px-4 py-2 text-xs text-rose-400 hover:bg-rose-950/40">
                 <i data-lucide="log-out" class="w-4 h-4"></i> Lock / Disconnect Session
               </button>
@@ -229,30 +233,30 @@
     <!-- ===================================================================== -->
     <div id="view-dashboard" class="space-y-6">
 
-      <!-- ORGAN SCANNER & 3D PIXELATED VOXEL VIEWPORT (HERO SECTION) -->
+      <!-- ORGAN SCANNER & REALISTIC 3D MICRO-DOTTED ORGAN VIEWPORT -->
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
         
-        <!-- Left: 3D Pixelated Floating Organ Viewport (7 Cols) -->
-        <div class="lg:col-span-7 bg-cryo-800/90 border border-cryo-600/70 rounded-2xl p-5 relative overflow-hidden flex flex-col justify-between shadow-xl">
+        <!-- Left: 3D Micro-Dotted Floating Organ Viewport (7 Cols) -->
+        <div class="lg:col-span-7 bg-theme-900 border border-theme-800 rounded-3xl p-5 relative overflow-hidden flex flex-col justify-between shadow-xl">
           <div class="scanline absolute inset-0 pointer-events-none opacity-40"></div>
           
           <!-- Top Overlay Controls -->
           <div class="flex items-center justify-between relative z-10">
             <div>
               <div class="flex items-center gap-2">
-                <span class="w-2.5 h-2.5 rounded-full bg-cryo-cyan animate-ping"></span>
-                <h2 class="text-sm font-black tracking-wider uppercase text-white">3D Holographic Voxel Chamber</h2>
+                <span class="w-2.5 h-2.5 rounded-full bg-theme-emerald animate-ping"></span>
+                <h2 class="text-sm font-black tracking-wider uppercase text-white">3D Micro-Dotted Organ Chamber</h2>
               </div>
-              <p class="text-[11px] text-cryo-cyan font-mono" id="organNameDisplay">HUMAN CARDIAC GRAFT (HEART) • ROTATING LIVE</p>
+              <p class="text-[11px] text-theme-emerald font-mono" id="organNameDisplay">HUMAN CARDIAC GRAFT (HEART) • DOTTED MATRIX</p>
             </div>
             
-            <!-- Organ Scanner Selector -->
-            <div class="flex items-center gap-2 bg-cryo-900/80 p-1.5 rounded-xl border border-cryo-700">
+            <!-- Organ Scanner Dropdown -->
+            <div class="flex items-center gap-2 bg-theme-950/90 p-1.5 rounded-2xl border border-theme-700">
               <label class="text-[10px] font-mono uppercase text-slate-400 px-2 flex items-center gap-1">
-                <i data-lucide="scan-line" class="w-3.5 h-3.5 text-cryo-cyan"></i> Scan Organ:
+                <i data-lucide="scan-line" class="w-3.5 h-3.5 text-theme-emerald"></i> Scan Organ:
               </label>
               <select id="organSelector" onchange="changeOrgan(this.value)"
-                class="bg-cryo-800 border border-cryo-600 text-xs text-white rounded-lg px-3 py-1 font-mono focus:outline-none focus:border-cryo-cyan">
+                class="bg-theme-900 border border-theme-700 text-xs text-white rounded-xl px-3 py-1 font-mono focus:outline-none focus:border-theme-emerald">
                 <option value="heart">Heart (Cardiac Graft)</option>
                 <option value="kidney">Kidney (Renal Allograft)</option>
                 <option value="liver">Liver (Hepatic Graft)</option>
@@ -261,110 +265,110 @@
             </div>
           </div>
 
-          <!-- Interactive 3D Canvas Container -->
-          <div class="relative w-full h-80 my-2 rounded-xl bg-cryo-900/60 border border-cryo-700/50 overflow-hidden flex items-center justify-center">
+          <!-- Interactive 3D Micro-Particle Canvas Container -->
+          <div class="relative w-full h-80 my-2 rounded-2xl bg-theme-950/80 border border-theme-800 overflow-hidden flex items-center justify-center">
             <div id="threejs-container" class="w-full h-full cursor-grab active:cursor-grabbing"></div>
             
             <!-- Chamber Overlay HUD Tags -->
-            <div class="absolute bottom-3 left-3 bg-cryo-900/80 backdrop-blur-md px-3 py-1.5 rounded-lg border border-cryo-700 text-[10px] font-mono text-slate-300 space-y-0.5">
-              <div>RFID TAG: <span class="text-cryo-cyan font-bold" id="organTagDisplay">RFID-9942-HRT</span></div>
-              <div>PRESERVATION FLUID: <span class="text-emerald-400 font-bold">UW Cold Storage Solution</span></div>
+            <div class="absolute bottom-3 left-3 bg-theme-950/90 backdrop-blur-md px-3 py-1.5 rounded-xl border border-theme-800 text-[10px] font-mono text-slate-300 space-y-0.5">
+              <div>RFID TAG: <span class="text-theme-emerald font-bold" id="organTagDisplay">RFID-9942-HRT</span></div>
+              <div>CRYO PERFUSION: <span class="text-theme-cyan font-bold">UW Solution (0.8 mL/min)</span></div>
             </div>
 
-            <div class="absolute bottom-3 right-3 bg-cryo-900/80 backdrop-blur-md px-3 py-1.5 rounded-lg border border-cryo-700 text-[10px] font-mono text-right text-slate-300">
+            <div class="absolute bottom-3 right-3 bg-theme-950/90 backdrop-blur-md px-3 py-1.5 rounded-xl border border-theme-800 text-[10px] font-mono text-right text-slate-300">
               <div>ORGAN CORE TEMP</div>
-              <div class="text-lg font-black text-cryo-cyan" id="organCoreDisplay">2.2°C</div>
+              <div class="text-xl font-black text-theme-emerald" id="organCoreDisplay">2.2°C</div>
             </div>
 
             <div class="absolute top-3 left-3 text-[10px] font-mono text-slate-500">
-              Drag mouse to rotate • Scroll to zoom
+              Interactive Micro-Particle Mesh • Drag to rotate
             </div>
           </div>
 
           <!-- Bottom Organ Quick Specs Bar -->
-          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-2 border-t border-cryo-700/60 text-xs font-mono relative z-10">
-            <div class="bg-cryo-900/60 p-2 rounded-lg border border-cryo-700/40">
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-2 border-t border-theme-800 text-xs font-mono relative z-10">
+            <div class="bg-theme-950/70 p-2.5 rounded-xl border border-theme-800">
               <span class="text-[10px] text-slate-400 block">DONOR MATCH</span>
               <span class="text-white font-bold" id="donorMatchDisplay">O- POSITIVE</span>
             </div>
-            <div class="bg-cryo-900/60 p-2 rounded-lg border border-cryo-700/40">
-              <span class="text-[10px] text-slate-400 block">ISCHEMIC TIME LIMIT</span>
-              <span class="text-cryo-blue font-bold" id="ischemicLimitDisplay">4.0 - 6.0 HRS</span>
+            <div class="bg-theme-950/70 p-2.5 rounded-xl border border-theme-800">
+              <span class="text-[10px] text-slate-400 block">ISCHEMIC LIMIT</span>
+              <span class="text-theme-cyan font-bold" id="ischemicLimitDisplay">4.0 - 6.0 HRS</span>
             </div>
-            <div class="bg-cryo-900/60 p-2 rounded-lg border border-cryo-700/40">
-              <span class="text-[10px] text-slate-400 block">IDEAL CRYO RANGE</span>
-              <span class="text-emerald-400 font-bold">1.0°C - 3.5°C</span>
+            <div class="bg-theme-950/70 p-2.5 rounded-xl border border-theme-800">
+              <span class="text-[10px] text-slate-400 block">SAFE CRYO BAND</span>
+              <span class="text-theme-emerald font-bold">0.5°C - 3.5°C</span>
             </div>
-            <div class="bg-cryo-900/60 p-2 rounded-lg border border-cryo-700/40">
-              <span class="text-[10px] text-slate-400 block">VESSEL PERFUSION</span>
-              <span class="text-cryo-cyan font-bold" id="perfusionDisplay">PULSATILE OK</span>
+            <div class="bg-theme-950/70 p-2.5 rounded-xl border border-theme-800">
+              <span class="text-[10px] text-slate-400 block">PERFUSION STATUS</span>
+              <span class="text-theme-emerald font-bold" id="perfusionDisplay">PULSATILE OK</span>
             </div>
           </div>
         </div>
 
-        <!-- Right: Module 2 - Viability & Real-Time Transit Clocks (5 Cols) -->
-        <div class="lg:col-span-5 bg-cryo-800/90 border border-cryo-600/70 rounded-2xl p-5 shadow-xl flex flex-col justify-between space-y-4">
-          <div class="flex items-center justify-between border-b border-cryo-700 pb-3">
+        <!-- Right: Module 2 - Viability & Real-Time Transit Chronometry (5 Cols) -->
+        <div class="lg:col-span-5 bg-theme-900 border border-theme-800 rounded-3xl p-5 shadow-xl flex flex-col justify-between space-y-4">
+          <div class="flex items-center justify-between border-b border-theme-800 pb-3">
             <div class="flex items-center gap-2">
-              <i data-lucide="activity" class="w-5 h-5 text-emerald-400"></i>
+              <i data-lucide="activity" class="w-5 h-5 text-theme-emerald"></i>
               <h2 class="text-sm font-black uppercase tracking-wider text-white">Viability & Transit Chronometry</h2>
             </div>
-            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-900/40 text-emerald-300 border border-emerald-500/40">
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-theme-emerald/20 text-theme-emerald border border-theme-emerald/40 font-bold">
               ML ALGORITHM PASS
             </span>
           </div>
 
           <!-- Large Viability Score Gauge -->
-          <div class="bg-cryo-900/80 rounded-xl p-4 border border-cryo-700 flex items-center justify-between">
+          <div class="bg-theme-950/80 rounded-2xl p-4 border border-theme-800 flex items-center justify-between">
             <div>
               <p class="text-xs font-bold uppercase text-slate-400 tracking-wider">ML Organ Viability Score</p>
               <div class="text-4xl font-black text-white mt-1 flex items-baseline gap-1 font-mono">
-                <span id="viabilityScore" class="text-emerald-400">98.4</span>
+                <span id="viabilityScore" class="text-theme-emerald">98.4</span>
                 <span class="text-sm text-slate-400">/ 100</span>
               </div>
-              <p class="text-[11px] text-slate-400 mt-1">Multi-sensor fused cellular preservation model</p>
+              <p class="text-[11px] text-slate-400 mt-1">Multi-sensor fused cellular model on VEGA core</p>
             </div>
-            <div class="w-20 h-20 rounded-full border-4 border-emerald-500/30 border-t-emerald-400 flex items-center justify-center">
-              <i data-lucide="heart-pulse" class="w-8 h-8 text-emerald-400 animate-pulse"></i>
+            <div class="w-20 h-20 rounded-full border-4 border-theme-emerald/20 border-t-theme-emerald flex items-center justify-center">
+              <i data-lucide="heart-pulse" class="w-8 h-8 text-theme-emerald animate-pulse"></i>
             </div>
           </div>
 
           <!-- Time & Excursion Breakdown Grid -->
           <div class="grid grid-cols-2 gap-3 font-mono">
-            <div class="bg-cryo-900/80 p-3 rounded-xl border border-cryo-700">
+            <div class="bg-theme-950/80 p-3 rounded-2xl border border-theme-800">
               <div class="text-[10px] text-slate-400 uppercase flex items-center gap-1">
-                <i data-lucide="clock" class="w-3 h-3 text-cryo-cyan"></i> Elapsed Transit
+                <i data-lucide="clock" class="w-3 h-3 text-theme-emerald"></i> Elapsed Transit
               </div>
               <div class="text-xl font-bold text-white mt-1" id="elapsedTransitTime">02:47:18</div>
               <div class="text-[9px] text-slate-400">Source: DS3231 RTC</div>
             </div>
 
-            <div class="bg-cryo-900/80 p-3 rounded-xl border border-cryo-700">
+            <div class="bg-theme-950/80 p-3 rounded-2xl border border-theme-800">
               <div class="text-[10px] text-slate-400 uppercase flex items-center gap-1">
-                <i data-lucide="hourglass" class="w-3 h-3 text-cryo-blue"></i> Remaining Safe Window
+                <i data-lucide="hourglass" class="w-3 h-3 text-theme-cyan"></i> Safe Window Left
               </div>
-              <div class="text-xl font-bold text-cryo-blue mt-1" id="safeWindowTime">03:12:42</div>
+              <div class="text-xl font-bold text-theme-cyan mt-1" id="safeWindowTime">03:12:42</div>
               <div class="text-[9px] text-slate-400">Viability Threshold: >80%</div>
             </div>
 
-            <div class="bg-cryo-900/80 p-3 rounded-xl border border-cryo-700">
+            <div class="bg-theme-950/80 p-3 rounded-2xl border border-theme-800">
               <div class="text-[10px] text-slate-400 uppercase flex items-center gap-1">
-                <i data-lucide="alert-triangle" class="w-3 h-3 text-cryo-amber"></i> Out-of-Band Excursion
+                <i data-lucide="alert-triangle" class="w-3 h-3 text-theme-amber"></i> Out-of-Band Time
               </div>
-              <div class="text-xl font-bold text-emerald-400 mt-1" id="cumulativeExcursion">00:00:00</div>
-              <div class="text-[9px] text-slate-400">Legal/Medical Audit Strict</div>
+              <div class="text-xl font-bold text-theme-emerald mt-1" id="cumulativeExcursion">00:00:00</div>
+              <div class="text-[9px] text-slate-400">Medical Audit Zero-Excursion</div>
             </div>
 
-            <div class="bg-cryo-900/80 p-3 rounded-xl border border-cryo-700">
+            <div class="bg-theme-950/80 p-3 rounded-2xl border border-theme-800">
               <div class="text-[10px] text-slate-400 uppercase flex items-center gap-1">
-                <i data-lucide="calendar" class="w-3 h-3 text-slate-400"></i> RTC Wall-Clock
+                <i data-lucide="calendar" class="w-3 h-3 text-slate-400"></i> RTC Timestamp
               </div>
-              <div class="text-lg font-bold text-white mt-1" id="rtcWallClock">21:09:44</div>
+              <div class="text-lg font-bold text-white mt-1" id="rtcWallClock">21:26:50</div>
               <div class="text-[9px] text-slate-400" id="rtcDate">2026-08-30 (IST)</div>
             </div>
           </div>
 
-          <div class="bg-cryo-900/50 p-2.5 rounded-lg border border-cryo-700 text-xs flex items-center justify-between">
+          <div class="bg-theme-950/50 p-2.5 rounded-xl border border-theme-800 text-xs flex items-center justify-between">
             <span class="text-slate-400 font-mono">Transit Route:</span>
             <span class="text-white font-semibold">City General Hospital ➔ Apollo Transplant Centre</span>
           </div>
@@ -378,177 +382,177 @@
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
 
         <!-- MODULE 1: TEMPERATURE MATRIX (CORE MONITORING) -->
-        <div class="bg-cryo-800/90 border border-cryo-600/70 rounded-2xl p-5 shadow-xl flex flex-col justify-between space-y-4">
-          <div class="flex items-center justify-between border-b border-cryo-700 pb-2">
+        <div class="bg-theme-900 border border-theme-800 rounded-3xl p-5 shadow-xl flex flex-col justify-between space-y-4">
+          <div class="flex items-center justify-between border-b border-theme-800 pb-2">
             <div class="flex items-center gap-2">
-              <i data-lucide="thermometer-snowflake" class="w-5 h-5 text-cryo-cyan"></i>
+              <i data-lucide="thermometer-snowflake" class="w-5 h-5 text-theme-emerald"></i>
               <h3 class="text-xs font-black uppercase tracking-wider text-white">1. Temperature Core</h3>
             </div>
-            <span class="text-[10px] font-mono text-cryo-cyan">1 Peltier Zone</span>
+            <span class="text-[10px] font-mono text-theme-emerald">1 Peltier Module</span>
           </div>
 
           <div class="space-y-2.5 font-mono text-xs">
-            <div class="flex justify-between items-center bg-cryo-900/80 p-2 rounded-lg border border-cryo-700">
+            <div class="flex justify-between items-center bg-theme-950/80 p-2 rounded-xl border border-theme-800">
               <span class="text-slate-400">Peltier Cold-Side (Zone 1)</span>
-              <span class="text-cryo-cyan font-bold text-sm" id="peltierColdTemp">2.1°C</span>
+              <span class="text-theme-emerald font-bold text-sm" id="peltierColdTemp">2.1°C</span>
             </div>
-            <div class="flex justify-between items-center bg-cryo-900/80 p-2 rounded-lg border border-cryo-700">
-              <span class="text-slate-400">Organ Chamber Core Ref</span>
-              <span class="text-emerald-400 font-bold text-sm" id="chamberCoreTemp">2.2°C</span>
+            <div class="flex justify-between items-center bg-theme-950/80 p-2 rounded-xl border border-theme-800">
+              <span class="text-slate-400">Organ Chamber Ref</span>
+              <span class="text-theme-cyan font-bold text-sm" id="chamberCoreTemp">2.2°C</span>
             </div>
-            <div class="flex justify-between items-center bg-cryo-900/80 p-2 rounded-lg border border-cryo-700">
+            <div class="flex justify-between items-center bg-theme-950/80 p-2 rounded-xl border border-theme-800">
               <span class="text-slate-400">Target Setpoint</span>
               <span class="text-white font-bold">2.0°C</span>
             </div>
-            <div class="flex justify-between items-center bg-cryo-900/80 p-2 rounded-lg border border-cryo-700">
+            <div class="flex justify-between items-center bg-theme-950/80 p-2 rounded-xl border border-theme-800">
               <span class="text-slate-400">Peltier Hot-Side (Heatsink)</span>
-              <span class="text-cryo-amber font-bold" id="peltierHotTemp">32.8°C</span>
+              <span class="text-theme-amber font-bold" id="peltierHotTemp">32.8°C</span>
             </div>
-            <div class="flex justify-between items-center bg-cryo-900/80 p-2 rounded-lg border border-cryo-700">
+            <div class="flex justify-between items-center bg-theme-950/80 p-2 rounded-xl border border-theme-800">
               <span class="text-slate-400">Ambient (Outside Box)</span>
               <span class="text-slate-200 font-bold" id="ambientTemp">28.4°C</span>
             </div>
           </div>
 
-          <div class="bg-cryo-900/60 p-2 rounded-lg border border-cryo-700 text-[10px] font-mono flex justify-between text-slate-400">
-            <span>Min: <b class="text-cryo-cyan">1.8°C</b></span>
-            <span>Max: <b class="text-cryo-cyan">2.6°C</b></span>
-            <span>Excursion: <b class="text-emerald-400">NONE (SAFE)</b></span>
+          <div class="bg-theme-950/60 p-2 rounded-xl border border-theme-800 text-[10px] font-mono flex justify-between text-slate-400">
+            <span>Min: <b class="text-theme-emerald">1.8°C</b></span>
+            <span>Max: <b class="text-theme-emerald">2.6°C</b></span>
+            <span>Excursion: <b class="text-theme-emerald">SAFE (0s)</b></span>
           </div>
         </div>
 
         <!-- MODULE 3: MOTION / ORIENTATION (IMU MPU6050) -->
-        <div class="bg-cryo-800/90 border border-cryo-600/70 rounded-2xl p-5 shadow-xl flex flex-col justify-between space-y-4">
-          <div class="flex items-center justify-between border-b border-cryo-700 pb-2">
+        <div class="bg-theme-900 border border-theme-800 rounded-3xl p-5 shadow-xl flex flex-col justify-between space-y-4">
+          <div class="flex items-center justify-between border-b border-theme-800 pb-2">
             <div class="flex items-center gap-2">
-              <i data-lucide="compass" class="w-5 h-5 text-cryo-blue"></i>
+              <i data-lucide="compass" class="w-5 h-5 text-theme-cyan"></i>
               <h3 class="text-xs font-black uppercase tracking-wider text-white">3. Motion / IMU</h3>
             </div>
-            <span class="text-[10px] font-mono text-emerald-400 bg-emerald-950/60 px-1.5 py-0.5 rounded border border-emerald-600/30">UPRIGHT</span>
+            <span class="text-[10px] font-mono text-theme-emerald bg-theme-950 px-2 py-0.5 rounded-full border border-theme-emerald/30">UPRIGHT</span>
           </div>
 
           <div class="space-y-2.5 font-mono text-xs">
-            <div class="flex justify-between items-center bg-cryo-900/80 p-2 rounded-lg border border-cryo-700">
+            <div class="flex justify-between items-center bg-theme-950/80 p-2 rounded-xl border border-theme-800">
               <span class="text-slate-400">Box Tilt (Pitch / Roll)</span>
-              <span class="text-white font-bold" id="tiltAngle">1.2° / 0.8°</span>
+              <span class="text-white font-bold" id="tiltAngle">1.1° / 0.7°</span>
             </div>
-            <div class="flex justify-between items-center bg-cryo-900/80 p-2 rounded-lg border border-cryo-700">
+            <div class="flex justify-between items-center bg-theme-950/80 p-2 rounded-xl border border-theme-800">
               <span class="text-slate-400">Shock Events (>1.5g)</span>
-              <span class="text-cryo-cyan font-bold" id="shockCount">0 Detected</span>
+              <span class="text-theme-emerald font-bold" id="shockCount">0 Detected</span>
             </div>
-            <div class="flex justify-between items-center bg-cryo-900/80 p-2 rounded-lg border border-cryo-700">
+            <div class="flex justify-between items-center bg-theme-950/80 p-2 rounded-xl border border-theme-800">
               <span class="text-slate-400">Peak Shock Magnitude</span>
-              <span class="text-slate-200 font-bold" id="peakShock">0.24 g</span>
+              <span class="text-slate-200 font-bold" id="peakShock">0.22 g</span>
             </div>
-            <div class="flex justify-between items-center bg-cryo-900/80 p-2 rounded-lg border border-cryo-700">
+            <div class="flex justify-between items-center bg-theme-950/80 p-2 rounded-xl border border-theme-800">
               <span class="text-slate-400">Vibration Level (RMS)</span>
-              <span class="text-emerald-400 font-bold" id="vibrationLevel">0.03 m/s²</span>
+              <span class="text-theme-emerald font-bold" id="vibrationLevel">0.03 m/s²</span>
             </div>
           </div>
 
-          <div class="p-2 bg-cryo-900/60 rounded-lg border border-cryo-700 flex items-center justify-between text-[11px] font-mono">
+          <div class="p-2 bg-theme-950/60 rounded-xl border border-theme-800 flex items-center justify-between text-[11px] font-mono">
             <span class="text-slate-400">MPU6050 Status:</span>
-            <span class="text-emerald-400 font-bold flex items-center gap-1"><span class="w-2 h-2 bg-emerald-400 rounded-full"></span> CALIBRATED</span>
+            <span class="text-theme-emerald font-bold flex items-center gap-1"><span class="w-2 h-2 bg-theme-emerald rounded-full"></span> CALIBRATED</span>
           </div>
         </div>
 
         <!-- MODULE 4: COOLING SYSTEM HEALTH -->
-        <div class="bg-cryo-800/90 border border-cryo-600/70 rounded-2xl p-5 shadow-xl flex flex-col justify-between space-y-4">
-          <div class="flex items-center justify-between border-b border-cryo-700 pb-2">
+        <div class="bg-theme-900 border border-theme-800 rounded-3xl p-5 shadow-xl flex flex-col justify-between space-y-4">
+          <div class="flex items-center justify-between border-b border-theme-800 pb-2">
             <div class="flex items-center gap-2">
-              <i data-lucide="cpu" class="w-5 h-5 text-cryo-cyan"></i>
+              <i data-lucide="cpu" class="w-5 h-5 text-theme-emerald"></i>
               <h3 class="text-xs font-black uppercase tracking-wider text-white">4. Cooling Health</h3>
             </div>
-            <span class="text-[10px] font-mono text-cryo-cyan">PWM AUTO-PID</span>
+            <span class="text-[10px] font-mono text-theme-emerald">PWM AUTO-PID</span>
           </div>
 
           <div class="space-y-2.5 font-mono text-xs">
-            <div class="bg-cryo-900/80 p-2 rounded-lg border border-cryo-700">
+            <div class="bg-theme-950/80 p-2 rounded-xl border border-theme-800">
               <div class="flex justify-between text-slate-400 mb-1">
                 <span>Peltier PWM Duty Cycle</span>
-                <span class="text-cryo-cyan font-bold" id="pwmValue">64%</span>
+                <span class="text-theme-emerald font-bold" id="pwmValue">64%</span>
               </div>
-              <div class="w-full bg-cryo-800 h-2 rounded-full overflow-hidden">
-                <div id="pwmBar" class="bg-cryo-cyan h-full rounded-full transition-all duration-500" style="width: 64%"></div>
+              <div class="w-full bg-theme-900 h-2 rounded-full overflow-hidden">
+                <div id="pwmBar" class="bg-theme-emerald h-full rounded-full transition-all duration-500" style="width: 64%"></div>
               </div>
             </div>
 
-            <div class="flex justify-between items-center bg-cryo-900/80 p-2 rounded-lg border border-cryo-700">
+            <div class="flex justify-between items-center bg-theme-950/80 p-2 rounded-xl border border-theme-800">
               <span class="text-slate-400">Heatsink Fan Status</span>
-              <span class="text-emerald-400 font-bold">ON (ACTIVE)</span>
+              <span class="text-theme-emerald font-bold">ON (ACTIVE)</span>
             </div>
-            <div class="flex justify-between items-center bg-cryo-900/80 p-2 rounded-lg border border-cryo-700">
+            <div class="flex justify-between items-center bg-theme-950/80 p-2 rounded-xl border border-theme-800">
               <span class="text-slate-400">Fan Tachometer RPM</span>
               <span class="text-white font-bold" id="fanRpm">3,480 RPM</span>
             </div>
-            <div class="flex justify-between items-center bg-cryo-900/80 p-2 rounded-lg border border-cryo-700">
+            <div class="flex justify-between items-center bg-theme-950/80 p-2 rounded-xl border border-theme-800">
               <span class="text-slate-400">Peltier Power Draw</span>
-              <span class="text-cryo-cyan font-bold" id="coolingPower">24.6 W</span>
+              <span class="text-theme-emerald font-bold" id="coolingPower">24.6 W</span>
             </div>
           </div>
 
-          <div class="p-2 bg-cryo-900/60 rounded-lg border border-cryo-700 text-[10px] font-mono text-slate-400 flex justify-between">
+          <div class="p-2 bg-theme-950/60 rounded-xl border border-theme-800 text-[10px] font-mono text-slate-400 flex justify-between">
             <span>Thermal Resistance: <b class="text-slate-200">0.32 K/W</b></span>
-            <span>Efficiency: <b class="text-emerald-400">OPTIMAL</b></span>
+            <span>Efficiency: <b class="text-theme-emerald">OPTIMAL</b></span>
           </div>
         </div>
 
         <!-- MODULE 5: POWER SYSTEM & TEG HARVESTING -->
-        <div class="bg-cryo-800/90 border border-cryo-600/70 rounded-2xl p-5 shadow-xl flex flex-col justify-between space-y-4">
-          <div class="flex items-center justify-between border-b border-cryo-700 pb-2">
+        <div class="bg-theme-900 border border-theme-800 rounded-3xl p-5 shadow-xl flex flex-col justify-between space-y-4">
+          <div class="flex items-center justify-between border-b border-theme-800 pb-2">
             <div class="flex items-center gap-2">
               <i data-lucide="zap" class="w-5 h-5 text-amber-400"></i>
               <h3 class="text-xs font-black uppercase tracking-wider text-white">5. Power & TEG</h3>
             </div>
-            <span class="text-[10px] font-mono text-emerald-400">HARVESTING ON</span>
+            <span class="text-[10px] font-mono text-theme-emerald">TEG BOOST ON</span>
           </div>
 
           <div class="space-y-2.5 font-mono text-xs">
-            <div class="bg-cryo-900/80 p-2 rounded-lg border border-cryo-700">
+            <div class="bg-theme-950/80 p-2 rounded-xl border border-theme-800">
               <div class="flex justify-between text-slate-400 mb-1">
                 <span>Battery Level (2S LiPo)</span>
-                <span class="text-emerald-400 font-bold" id="batteryPercent">86%</span>
+                <span class="text-theme-emerald font-bold" id="batteryPercent">86%</span>
               </div>
-              <div class="w-full bg-cryo-800 h-2 rounded-full overflow-hidden">
-                <div class="bg-emerald-400 h-full rounded-full transition-all duration-500" style="width: 86%"></div>
+              <div class="w-full bg-theme-900 h-2 rounded-full overflow-hidden">
+                <div class="bg-theme-emerald h-full rounded-full transition-all duration-500" style="width: 86%"></div>
               </div>
             </div>
 
-            <div class="flex justify-between items-center bg-cryo-900/80 p-2 rounded-lg border border-cryo-700">
+            <div class="flex justify-between items-center bg-theme-950/80 p-2 rounded-xl border border-theme-800">
               <span class="text-slate-400">Bus Voltage / Current</span>
               <span class="text-white font-bold" id="batteryVandA">11.8V / 2.1A</span>
             </div>
-            <div class="flex justify-between items-center bg-cryo-900/80 p-2 rounded-lg border border-cryo-700">
+            <div class="flex justify-between items-center bg-theme-950/80 p-2 rounded-xl border border-theme-800">
               <span class="text-slate-400">Estimated Runtime</span>
-              <span class="text-cryo-blue font-bold">6h 45m</span>
+              <span class="text-theme-cyan font-bold">6h 45m</span>
             </div>
-            <div class="flex justify-between items-center bg-cryo-900/80 p-2 rounded-lg border border-cryo-700">
+            <div class="flex justify-between items-center bg-theme-950/80 p-2 rounded-xl border border-theme-800">
               <span class="text-slate-400">TEG Energy Harvest</span>
-              <span class="text-emerald-400 font-bold" id="tegPower">+420 mW</span>
+              <span class="text-theme-emerald font-bold" id="tegPower">+420 mW</span>
             </div>
           </div>
 
-          <div class="p-2 bg-cryo-900/60 rounded-lg border border-cryo-700 text-[10px] font-mono text-slate-400 flex justify-between">
+          <div class="p-2 bg-theme-950/60 rounded-xl border border-theme-800 text-[10px] font-mono text-slate-400 flex justify-between">
             <span>Rail: <b class="text-slate-200">Buck Isolated</b></span>
-            <span>Boost Circuit: <b class="text-emerald-400">LTC3108 OK</b></span>
+            <span>Boost IC: <b class="text-theme-emerald">LTC3108 OK</b></span>
           </div>
         </div>
 
       </div>
 
-      <!-- MODULE 6, 7, 8 & LIVE EXCURSION GRAPH -->
+      <!-- MODULE 6, 7, 8 & LIVE THERMAL EXCURSION GRAPH -->
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
 
         <!-- Left: Live Excursion Graph & Safety Arbiter (7 Cols) -->
-        <div class="lg:col-span-7 bg-cryo-800/90 border border-cryo-600/70 rounded-2xl p-5 shadow-xl flex flex-col justify-between space-y-4">
-          <div class="flex items-center justify-between border-b border-cryo-700 pb-3">
+        <div class="lg:col-span-7 bg-theme-900 border border-theme-800 rounded-3xl p-5 shadow-xl flex flex-col justify-between space-y-4">
+          <div class="flex items-center justify-between border-b border-theme-800 pb-3">
             <div class="flex items-center gap-2">
-              <i data-lucide="line-chart" class="w-5 h-5 text-cryo-cyan"></i>
+              <i data-lucide="line-chart" class="w-5 h-5 text-theme-emerald"></i>
               <h3 class="text-xs font-black uppercase tracking-wider text-white">Live Thermal Excursion History</h3>
             </div>
             <div class="flex items-center gap-4 text-[10px] font-mono">
-              <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 bg-cryo-cyan rounded-full"></span> Chamber Ref</span>
-              <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 bg-emerald-400 rounded-full"></span> Peltier Cold</span>
+              <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 bg-theme-cyan rounded-full"></span> Chamber Ref</span>
+              <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 bg-theme-emerald rounded-full"></span> Peltier Cold</span>
               <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 bg-amber-400 rounded-full"></span> Ambient</span>
             </div>
           </div>
@@ -558,26 +562,26 @@
           </div>
 
           <!-- Sub-Row: Module 6 - Safety Watchdog & Control Agreement -->
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 font-mono text-xs pt-2 border-t border-cryo-700">
-            <div class="bg-cryo-900/80 p-3 rounded-xl border border-cryo-700">
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 font-mono text-xs pt-2 border-t border-theme-800">
+            <div class="bg-theme-950/80 p-3 rounded-2xl border border-theme-800">
               <div class="text-[10px] text-slate-400 uppercase">Hardware Watchdog</div>
-              <div class="text-sm font-bold text-emerald-400 mt-1 flex items-center gap-1.5">
+              <div class="text-sm font-bold text-theme-emerald mt-1 flex items-center gap-1.5">
                 <i data-lucide="shield-check" class="w-4 h-4"></i> ARMED & TICKING
               </div>
               <div class="text-[9px] text-slate-400 mt-0.5">Independent Hard Reset</div>
             </div>
 
-            <div class="bg-cryo-900/80 p-3 rounded-xl border border-cryo-700">
+            <div class="bg-theme-950/80 p-3 rounded-2xl border border-theme-800">
               <div class="text-[10px] text-slate-400 uppercase">SW vs HW Agreement</div>
-              <div class="text-sm font-bold text-cryo-cyan mt-1 flex items-center gap-1.5">
+              <div class="text-sm font-bold text-theme-cyan mt-1 flex items-center gap-1.5">
                 <i data-lucide="check-check" class="w-4 h-4"></i> 100% IN SYNC
               </div>
-              <div class="text-[9px] text-slate-400 mt-0.5">Patent Audit Verified</div>
+              <div class="text-[9px] text-slate-400 mt-0.5">Patent Claim Diagnostic</div>
             </div>
 
-            <div class="bg-cryo-900/80 p-3 rounded-xl border border-cryo-700">
+            <div class="bg-theme-950/80 p-3 rounded-2xl border border-theme-800">
               <div class="text-[10px] text-slate-400 uppercase">Lid Seal Optical Status</div>
-              <div class="text-sm font-bold text-emerald-400 mt-1 flex items-center gap-1.5">
+              <div class="text-sm font-bold text-theme-emerald mt-1 flex items-center gap-1.5">
                 <i data-lucide="lock" class="w-4 h-4"></i> HERMETIC SEAL OK
               </div>
               <div class="text-[9px] text-slate-400 mt-0.5">Limit Switch Interlocked</div>
@@ -586,32 +590,32 @@
         </div>
 
         <!-- Right: Module 7 (Connectivity) & Module 8 (Tamper Log) (5 Cols) -->
-        <div class="lg:col-span-5 bg-cryo-800/90 border border-cryo-600/70 rounded-2xl p-5 shadow-xl flex flex-col justify-between space-y-4">
+        <div class="lg:col-span-5 bg-theme-900 border border-theme-800 rounded-3xl p-5 shadow-xl flex flex-col justify-between space-y-4">
           
           <!-- Module 7: Connectivity Header -->
           <div>
-            <div class="flex items-center justify-between border-b border-cryo-700 pb-2 mb-3">
+            <div class="flex items-center justify-between border-b border-theme-800 pb-2 mb-3">
               <div class="flex items-center gap-2">
-                <i data-lucide="radio" class="w-5 h-5 text-cryo-cyan"></i>
+                <i data-lucide="radio" class="w-5 h-5 text-theme-emerald"></i>
                 <h3 class="text-xs font-black uppercase tracking-wider text-white">7. System & Comms Bus</h3>
               </div>
-              <span class="text-[10px] font-mono text-emerald-400">VEGA ET1031 ACTIVE</span>
+              <span class="text-[10px] font-mono text-theme-emerald">VEGA ET1031 ACTIVE</span>
             </div>
 
             <div class="grid grid-cols-2 gap-2 font-mono text-xs">
-              <div class="bg-cryo-900/80 p-2 rounded-lg border border-cryo-700 flex justify-between items-center">
+              <div class="bg-theme-950/80 p-2 rounded-xl border border-theme-800 flex justify-between items-center">
                 <span class="text-slate-400">VEGA ↔ ESP32</span>
-                <span class="text-emerald-400 font-bold">ALIVE (SPI)</span>
+                <span class="text-theme-emerald font-bold">ALIVE (SPI)</span>
               </div>
-              <div class="bg-cryo-900/80 p-2 rounded-lg border border-cryo-700 flex justify-between items-center">
+              <div class="bg-theme-950/80 p-2 rounded-xl border border-theme-800 flex justify-between items-center">
                 <span class="text-slate-400">WiFi / BLE</span>
-                <span class="text-cryo-cyan font-bold">-62 dBm</span>
+                <span class="text-theme-cyan font-bold">-62 dBm</span>
               </div>
-              <div class="bg-cryo-900/80 p-2 rounded-lg border border-cryo-700 flex justify-between items-center">
+              <div class="bg-theme-950/80 p-2 rounded-xl border border-theme-800 flex justify-between items-center">
                 <span class="text-slate-400">SD Card Flash</span>
                 <span class="text-white font-bold">OK (28.4 GB)</span>
               </div>
-              <div class="bg-cryo-900/80 p-2 rounded-lg border border-cryo-700 flex justify-between items-center">
+              <div class="bg-theme-950/80 p-2 rounded-xl border border-theme-800 flex justify-between items-center">
                 <span class="text-slate-400">Last Cloud Sync</span>
                 <span class="text-slate-200 font-bold">2s ago</span>
               </div>
@@ -620,24 +624,24 @@
 
           <!-- Module 8: Tamper-Evident SHA-256 Event Stream -->
           <div class="flex-1 flex flex-col justify-between">
-            <div class="flex items-center justify-between border-b border-cryo-700 pb-2 mb-2">
+            <div class="flex items-center justify-between border-b border-theme-800 pb-2 mb-2">
               <div class="flex items-center gap-2">
-                <i data-lucide="binary" class="w-5 h-5 text-emerald-400"></i>
+                <i data-lucide="binary" class="w-5 h-5 text-theme-emerald"></i>
                 <h3 class="text-xs font-black uppercase tracking-wider text-white">8. Tamper-Evident Audit Feed</h3>
               </div>
-              <span class="text-[9px] font-mono text-emerald-400 bg-emerald-950 px-1.5 py-0.5 rounded border border-emerald-600/30">
+              <span class="text-[9px] font-mono text-theme-emerald bg-theme-950 px-2 py-0.5 rounded-full border border-theme-emerald/30">
                 SHA-256 CHAIN VALID
               </span>
             </div>
 
             <!-- Terminal Scrolling Logs -->
-            <div id="logStream" class="h-44 bg-cryo-900 rounded-xl p-3 border border-cryo-700 font-mono text-[11px] overflow-y-auto space-y-1.5 custom-scroll text-slate-300">
+            <div id="logStream" class="h-44 bg-theme-950 rounded-2xl p-3 border border-theme-800 font-mono text-[11px] overflow-y-auto space-y-1.5 custom-scroll text-slate-300">
               <!-- Dynamically populated -->
             </div>
 
-            <div class="mt-2 pt-2 border-t border-cryo-700/60 flex items-center justify-between text-[10px] font-mono text-slate-400">
-              <span>ROOT BLOCK: <b class="text-cryo-cyan">#0x8F9A...B31C</b></span>
-              <button onclick="addSimulatedEvent()" class="text-cryo-cyan hover:underline">Simulate Test Event</button>
+            <div class="mt-2 pt-2 border-t border-theme-800 flex items-center justify-between text-[10px] font-mono text-slate-400">
+              <span>ROOT BLOCK: <b class="text-theme-emerald">#0x8F9A...B31C</b></span>
+              <button onclick="addSimulatedEvent()" class="text-theme-emerald hover:underline font-bold">Simulate Test Event</button>
             </div>
           </div>
 
@@ -652,25 +656,25 @@
     <!-- ===================================================================== -->
     <div id="view-about" class="hidden space-y-8">
       
-      <!-- Hero Banner -->
-      <div class="bg-gradient-to-r from-cryo-800 to-cryo-700 border border-cryo-600 rounded-3xl p-8 lg:p-12 shadow-2xl relative overflow-hidden">
+      <div class="bg-gradient-to-r from-theme-900 to-theme-850 border border-theme-700 rounded-3xl p-8 lg:p-12 shadow-2xl relative overflow-hidden">
         <div class="max-w-3xl relative z-10 space-y-4">
-          <div class="inline-flex items-center gap-2 px-3 py-1 bg-cryo-cyan/20 text-cryo-cyan rounded-full text-xs font-mono border border-cryo-cyan/30">
-            <i data-lucide="award" class="w-4 h-4"></i> EMBRIX '26 • VEGATHON COMPETITION ENTRY
+          <div class="inline-flex items-center gap-2 px-3 py-1 bg-theme-emerald/20 text-theme-emerald rounded-full text-xs font-mono border border-theme-emerald/30 font-bold">
+            <i data-lucide="award" class="w-4 h-4"></i> EMBRIX '26 • VEGATHON HACKATHON
           </div>
           <h1 class="text-3xl lg:text-5xl font-black text-white tracking-tight">
-            Autonomous Hybrid Sensor-Driven Organ Transportation System
+            Hybrid - Cryo
           </h1>
+          <h2 class="text-lg text-theme-emerald font-semibold">Autonomous Hybrid Sensor-Driven Organ Transportation Cooling System</h2>
           <p class="text-slate-300 text-sm lg:text-base leading-relaxed">
-            Engineered by <b>Team Micro-Mavericks</b> from <b>Bannari Amman Institute of Technology</b> in collaboration with <b>C-DAC</b>.
-            We are building an accessible, highly dependable cold-chain preservation platform powered by the indigenous <b>VEGA ET1031 RISC-V SoC</b>, eliminating the need for high-cost specialized transit technicians while providing medical-grade clinical certainty.
+            Developed by <b>Team Micro-Mavericks</b> from <b>Bannari Amman Institute of Technology</b> in collaboration with <b>C-DAC</b>.
+            Our mission is to replace fragile ice-coolers and multimillion-dollar commercial perfusion equipment with an affordable, technician-free autonomous platform powered by the indigenous <b>VEGA ET1031 RISC-V SoC</b>.
           </p>
         </div>
       </div>
 
-      <!-- Problem Statement vs Our Novel Solution -->
+      <!-- Problem vs Solution -->
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div class="bg-cryo-800/80 border border-cryo-700 rounded-2xl p-6 space-y-4">
+        <div class="bg-theme-900 border border-theme-800 rounded-3xl p-6 space-y-4">
           <div class="flex items-center gap-3 text-rose-400">
             <i data-lucide="alert-circle" class="w-6 h-6"></i>
             <h3 class="text-lg font-bold text-white">The Conventional Problem</h3>
@@ -682,8 +686,8 @@
           </ul>
         </div>
 
-        <div class="bg-cryo-800/80 border border-cryo-600 rounded-2xl p-6 space-y-4 shadow-xl">
-          <div class="flex items-center gap-3 text-cryo-cyan">
+        <div class="bg-theme-900 border border-theme-700 rounded-3xl p-6 space-y-4 shadow-xl">
+          <div class="flex items-center gap-3 text-theme-emerald">
             <i data-lucide="sparkles" class="w-6 h-6"></i>
             <h3 class="text-lg font-bold text-white">Our VEGA-Driven Innovation</h3>
           </div>
@@ -695,31 +699,6 @@
         </div>
       </div>
 
-      <!-- Tech Stack & Hardware Breakdown -->
-      <div class="bg-cryo-800/90 border border-cryo-700 rounded-2xl p-6 space-y-6">
-        <h3 class="text-lg font-black text-white uppercase tracking-wider flex items-center gap-2">
-          <i data-lucide="cpu" class="w-5 h-5 text-cryo-cyan"></i> Embedded Architecture & Team Specialization
-        </h3>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs font-mono">
-          <div class="bg-cryo-900/80 p-4 rounded-xl border border-cryo-700">
-            <div class="text-cryo-cyan font-bold text-sm mb-1">VEGA ET1031 SoC</div>
-            <p class="text-slate-400">RV32IM RISC-V Core executing FreeRTOS multitasking and safety arbiters.</p>
-          </div>
-          <div class="bg-cryo-900/80 p-4 rounded-xl border border-cryo-700">
-            <div class="text-cryo-blue font-bold text-sm mb-1">Thermoelectric Cooling</div>
-            <p class="text-slate-400">PWM controlled Peltier unit + heatsink tachometer + TEG energy harvester.</p>
-          </div>
-          <div class="bg-cryo-900/80 p-4 rounded-xl border border-cryo-700">
-            <div class="text-emerald-400 font-bold text-sm mb-1">Multi-Sensor Array</div>
-            <p class="text-slate-400">MPU6050 (IMU), DS3231 (RTC), MFRC522 (RFID), and precision Dallas 1-Wire thermal probes.</p>
-          </div>
-          <div class="bg-cryo-900/80 p-4 rounded-xl border border-cryo-700">
-            <div class="text-amber-400 font-bold text-sm mb-1">Dual-Factor Verification</div>
-            <p class="text-slate-400">RFID matched station identity + physical limit switch interlock confirmation.</p>
-          </div>
-        </div>
-      </div>
-
     </div>
 
     <!-- ===================================================================== -->
@@ -728,7 +707,7 @@
     <div id="view-services" class="hidden space-y-8">
       
       <div class="text-center max-w-2xl mx-auto space-y-3">
-        <h1 class="text-3xl font-black text-white">VEGA-CRYO Clinical Cold-Chain Services</h1>
+        <h1 class="text-3xl font-black text-white">Hybrid - Cryo Cold-Chain Services</h1>
         <p class="text-sm text-slate-300">
           Autonomous, technician-free organ logistics powered by continuous edge-sensing, active thermoelectric preservation, and immutable telemetry.
         </p>
@@ -736,9 +715,8 @@
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         
-        <!-- Service 1 -->
-        <div class="bg-cryo-800/90 border border-cryo-700 hover:border-cryo-cyan rounded-2xl p-6 space-y-4 transition shadow-xl group">
-          <div class="w-12 h-12 rounded-xl bg-cryo-700/80 border border-cryo-cyan/40 flex items-center justify-center text-cryo-cyan group-hover:scale-110 transition">
+        <div class="bg-theme-900 border border-theme-800 hover:border-theme-emerald rounded-3xl p-6 space-y-4 transition shadow-xl group">
+          <div class="w-12 h-12 rounded-2xl bg-theme-800 border border-theme-emerald/40 flex items-center justify-center text-theme-emerald group-hover:scale-110 transition">
             <i data-lucide="thermometer" class="w-6 h-6"></i>
           </div>
           <h3 class="text-lg font-bold text-white">Active Dynamic Thermoregulation</h3>
@@ -747,9 +725,8 @@
           </p>
         </div>
 
-        <!-- Service 2 -->
-        <div class="bg-cryo-800/90 border border-cryo-700 hover:border-cryo-cyan rounded-2xl p-6 space-y-4 transition shadow-xl group">
-          <div class="w-12 h-12 rounded-xl bg-cryo-700/80 border border-cryo-blue/40 flex items-center justify-center text-cryo-blue group-hover:scale-110 transition">
+        <div class="bg-theme-900 border border-theme-800 hover:border-theme-emerald rounded-3xl p-6 space-y-4 transition shadow-xl group">
+          <div class="w-12 h-12 rounded-2xl bg-theme-800 border border-theme-cyan/40 flex items-center justify-center text-theme-cyan group-hover:scale-110 transition">
             <i data-lucide="shield-alert" class="w-6 h-6"></i>
           </div>
           <h3 class="text-lg font-bold text-white">Tamper-Proof Chain of Custody</h3>
@@ -758,9 +735,8 @@
           </p>
         </div>
 
-        <!-- Service 3 -->
-        <div class="bg-cryo-800/90 border border-cryo-700 hover:border-cryo-cyan rounded-2xl p-6 space-y-4 transition shadow-xl group">
-          <div class="w-12 h-12 rounded-xl bg-cryo-700/80 border border-emerald-500/40 flex items-center justify-center text-emerald-400 group-hover:scale-110 transition">
+        <div class="bg-theme-900 border border-theme-800 hover:border-theme-emerald rounded-3xl p-6 space-y-4 transition shadow-xl group">
+          <div class="w-12 h-12 rounded-2xl bg-theme-800 border border-theme-teal/40 flex items-center justify-center text-theme-teal group-hover:scale-110 transition">
             <i data-lucide="sparkles" class="w-6 h-6"></i>
           </div>
           <h3 class="text-lg font-bold text-white">ML Organ Viability Forecasting</h3>
@@ -773,10 +749,125 @@
 
     </div>
 
+    <!-- ===================================================================== -->
+    <!-- VIEW D: CONTACT US PAGE                                               -->
+    <!-- ===================================================================== -->
+    <div id="view-contact" class="hidden space-y-8">
+      
+      <div class="text-center max-w-2xl mx-auto space-y-3">
+        <div class="inline-flex items-center gap-2 px-3 py-1 bg-theme-emerald/20 text-theme-emerald rounded-full text-xs font-mono border border-theme-emerald/30 font-bold">
+          <i data-lucide="phone-call" class="w-3.5 h-3.5"></i> 24/7 DISPATCH & EMERGENCY SUPPORT
+        </div>
+        <h1 class="text-3xl font-black text-white">Contact the Hybrid - Cryo Team</h1>
+        <p class="text-sm text-slate-300">
+          Get in touch with the lead engineering team, medical logistics coordinators, or Bannari Amman Institute of Technology & C-DAC research cell.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        
+        <!-- Left: Quick Contact Info Cards (5 Cols) -->
+        <div class="lg:col-span-5 space-y-4">
+          
+          <div class="bg-theme-900 border border-theme-800 rounded-3xl p-6 space-y-3">
+            <div class="flex items-center gap-3 text-theme-emerald">
+              <i data-lucide="building" class="w-6 h-6"></i>
+              <h3 class="text-sm font-bold uppercase tracking-wider text-white">Institution & Research Lab</h3>
+            </div>
+            <p class="text-xs text-slate-300 leading-relaxed font-mono">
+              Team Micro-Mavericks<br/>
+              Department of Electronics & Communication Engineering<br/>
+              Bannari Amman Institute of Technology (BIT)<br/>
+              Sathyamangalam, Tamil Nadu - 638401
+            </p>
+          </div>
+
+          <div class="bg-theme-900 border border-theme-800 rounded-3xl p-6 space-y-3">
+            <div class="flex items-center gap-3 text-theme-cyan">
+              <i data-lucide="cpu" class="w-6 h-6"></i>
+              <h3 class="text-sm font-bold uppercase tracking-wider text-white">C-DAC VEGA Collaboration</h3>
+            </div>
+            <p class="text-xs text-slate-300 leading-relaxed font-mono">
+              Centre for Development of Advanced Computing (C-DAC)<br/>
+              Indigenous RISC-V VEGA Microprocessor Programme<br/>
+              Vegathon / Embrix '26 Technical Division
+            </p>
+          </div>
+
+          <div class="bg-theme-900 border border-theme-800 rounded-3xl p-6 space-y-3">
+            <div class="flex items-center gap-3 text-rose-400">
+              <i data-lucide="phone-forwarded" class="w-6 h-6"></i>
+              <h3 class="text-sm font-bold uppercase tracking-wider text-white">Emergency Dispatch Hotline</h3>
+            </div>
+            <p class="text-xs text-slate-300 font-mono">
+              Toll-Free 24/7 Organ Transit Desk: <span class="text-theme-emerald font-bold">+91 (04295) 226000</span><br/>
+              Direct Dispatch Sync: <span class="text-theme-cyan font-bold">dispatch@hybrid-cryo.org</span>
+            </p>
+          </div>
+
+        </div>
+
+        <!-- Right: Interactive Dispatch Contact Form (7 Cols) -->
+        <div class="lg:col-span-7 bg-theme-900 border border-theme-800 rounded-3xl p-8 shadow-2xl">
+          <h3 class="text-lg font-bold text-white mb-2 flex items-center gap-2">
+            <i data-lucide="send" class="w-5 h-5 text-theme-emerald"></i>
+            Send Dispatch Inquiry or Telemetry Log Request
+          </h3>
+          <p class="text-xs text-slate-400 mb-6 font-mono">All messages are logged to the cryptographic transit registry.</p>
+
+          <form onsubmit="handleContactSubmit(event)" class="space-y-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs font-semibold uppercase text-slate-300 mb-1">Your Full Name</label>
+                <input type="text" required placeholder="Dr. Jane Doe"
+                  class="w-full bg-theme-950 border border-theme-700 rounded-xl px-4 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-theme-emerald transition font-mono" />
+              </div>
+              <div>
+                <label class="block text-xs font-semibold uppercase text-slate-300 mb-1">Hospital / Organization</label>
+                <input type="text" required placeholder="Apollo Hospitals / AIIMS"
+                  class="w-full bg-theme-950 border border-theme-700 rounded-xl px-4 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-theme-emerald transition font-mono" />
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs font-semibold uppercase text-slate-300 mb-1">Official Email</label>
+                <input type="email" required placeholder="doctor@transplant.org"
+                  class="w-full bg-theme-950 border border-theme-700 rounded-xl px-4 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-theme-emerald transition font-mono" />
+              </div>
+              <div>
+                <label class="block text-xs font-semibold uppercase text-slate-300 mb-1">Inquiry Type</label>
+                <select class="w-full bg-theme-950 border border-theme-700 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-theme-emerald transition font-mono">
+                  <option>Organ Transit Telemetry Access</option>
+                  <option>VEGA RISC-V Hardware Integration</option>
+                  <option>Clinical Trial Deployment</option>
+                  <option>Emergency Transit Escalation</option>
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-xs font-semibold uppercase text-slate-300 mb-1">Message / Request Details</label>
+              <textarea rows="4" required placeholder="Specify your organ transit node ID, telemetry requirement, or technical question..."
+                class="w-full bg-theme-950 border border-theme-700 rounded-xl p-3 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-theme-emerald transition font-mono"></textarea>
+            </div>
+
+            <button type="submit"
+              class="w-full py-3 px-4 bg-gradient-to-r from-theme-emerald to-theme-teal hover:from-emerald-400 hover:to-teal-400 text-theme-950 font-bold rounded-xl shadow-lg shadow-theme-emerald/20 transition transform active:scale-98 flex items-center justify-center gap-2">
+              <i data-lucide="send" class="w-4 h-4"></i>
+              <span>TRANSMIT DISPATCH MESSAGE</span>
+            </button>
+          </form>
+        </div>
+
+      </div>
+
+    </div>
+
   </main>
 
   <!-- ========================================================================= -->
-  <!-- 4. JAVASCRIPT: THREE.JS VOXEL ORGAN ENGINE & REAL-TIME TELEMETRY ENGINE   -->
+  <!-- 4. JAVASCRIPT: 3D MICRO-DOTTED POINT CLOUD ORGAN ENGINE & TELEMETRY       -->
   <!-- ========================================================================= -->
   <script>
     // Initialize Lucide Icons
@@ -786,21 +877,23 @@
     // View Switching & Profile Dropdown
     // -------------------------------------------------------------------------
     function switchView(viewId) {
-      document.getElementById('view-dashboard').classList.add('hidden');
-      document.getElementById('view-about').classList.add('hidden');
-      document.getElementById('view-services').classList.add('hidden');
+      ['dashboard', 'about', 'services', 'contact'].forEach(v => {
+        const viewEl = document.getElementById(`view-${v}`);
+        if (viewEl) viewEl.classList.add('hidden');
 
-      document.getElementById(`view-${viewId}`).classList.remove('hidden');
-
-      // Update active nav button styles
-      ['dashboard', 'about', 'services'].forEach(v => {
         const btn = document.getElementById(`nav-${v}`);
-        if (v === viewId) {
-          btn.className = 'px-4 py-1.5 rounded-lg text-xs font-semibold transition flex items-center gap-1.5 bg-cryo-cyan text-cryo-900 shadow';
-        } else {
-          btn.className = 'px-4 py-1.5 rounded-lg text-xs font-semibold text-slate-300 hover:text-white hover:bg-cryo-700/50 transition flex items-center gap-1.5';
+        if (btn) {
+          if (v === viewId) {
+            btn.className = 'px-4 py-1.5 rounded-lg text-xs font-semibold transition flex items-center gap-1.5 bg-theme-emerald text-theme-950 shadow font-bold';
+          } else {
+            btn.className = 'px-4 py-1.5 rounded-lg text-xs font-semibold text-slate-300 hover:text-white hover:bg-theme-800 transition flex items-center gap-1.5';
+          }
         }
       });
+
+      const targetView = document.getElementById(`view-${viewId}`);
+      if (targetView) targetView.classList.remove('hidden');
+
       lucide.createIcons();
     }
 
@@ -815,7 +908,7 @@
       setTimeout(() => {
         document.getElementById('authOverlay').style.display = 'none';
       }, 400);
-      addLogEntry('AUTH', 'User Dr. V. Sri S. authenticated via Secure Token (VEGA-Node-1031)');
+      addLogEntry('AUTH', 'User Dr. V. Sri S. authenticated on VEGA ET1031 node');
     }
 
     function simulateRfidBadge() {
@@ -830,6 +923,12 @@
       document.getElementById('authOverlay').classList.remove('opacity-0', 'pointer-events-none');
     }
 
+    function handleContactSubmit(e) {
+      e.preventDefault();
+      alert('Your message has been cryptographically signed and logged to the Hybrid - Cryo dispatch queue.');
+      e.target.reset();
+    }
+
     // -------------------------------------------------------------------------
     // Organ Specifications Database
     // -------------------------------------------------------------------------
@@ -839,44 +938,40 @@
         tag: 'RFID-9942-HRT',
         donor: 'O- POSITIVE',
         ischemicLimit: '4.0 - 6.0 HRS',
-        idealTemp: '1.0°C - 3.5°C',
         perfusion: 'PULSATILE OK',
         viability: 98.4,
-        color: 0xef4444,
-        accent: 0x38bdf8
+        color: 0x00F5A0, // Dotted Emerald Neon
+        secondaryColor: 0x38E1FF
       },
       kidney: {
         name: 'HUMAN RENAL ALLOGRAFT (KIDNEY)',
         tag: 'RFID-7718-KDN',
         donor: 'A+ POSITIVE',
         ischemicLimit: '24.0 - 36.0 HRS',
-        idealTemp: '2.0°C - 4.0°C',
         perfusion: 'CONTINUOUS FLOW',
         viability: 99.1,
-        color: 0x8b5cf6,
-        accent: 0xf59e0b
+        color: 0x00F5A0,
+        secondaryColor: 0xF59E0B
       },
       liver: {
         name: 'HUMAN HEPATIC GRAFT (LIVER)',
         tag: 'RFID-5521-LVR',
         donor: 'B+ POSITIVE',
         ischemicLimit: '8.0 - 12.0 HRS',
-        idealTemp: '1.5°C - 3.0°C',
         perfusion: 'DUAL-VESSEL PERFUSED',
         viability: 97.8,
-        color: 0xd97706,
-        accent: 0x10b981
+        color: 0x00F5A0,
+        secondaryColor: 0x10B981
       },
       lung: {
         name: 'HUMAN PULMONARY GRAFT (LUNG)',
         tag: 'RFID-3382-LNG',
         donor: 'AB+ POSITIVE',
         ischemicLimit: '6.0 - 8.0 HRS',
-        idealTemp: '2.0°C - 4.0°C',
         perfusion: 'VENTILATED / PERFUSED',
         viability: 96.5,
-        color: 0x06b6d4,
-        accent: 0xf43f5e
+        color: 0x38E1FF,
+        secondaryColor: 0x00F5A0
       }
     };
 
@@ -886,21 +981,21 @@
       currentOrgan = organKey;
       const data = ORGAN_DATA[organKey];
       
-      document.getElementById('organNameDisplay').innerText = `${data.name} • ROTATING LIVE`;
+      document.getElementById('organNameDisplay').innerText = `${data.name} • DOTTED MATRIX`;
       document.getElementById('organTagDisplay').innerText = data.tag;
       document.getElementById('donorMatchDisplay').innerText = data.donor;
       document.getElementById('ischemicLimitDisplay').innerText = data.ischemicLimit;
       document.getElementById('perfusionDisplay').innerText = data.perfusion;
       document.getElementById('viabilityScore').innerText = data.viability;
 
-      buildVoxelOrgan(organKey);
+      buildMicroDottedOrgan(organKey);
       addLogEntry('RFID_SCAN', `Scanned organ tag verified: ${data.name} [${data.tag}]`);
     }
 
     // -------------------------------------------------------------------------
-    // Three.js 3D Pixelated / Voxel Organ Scene Setup
+    // Realistic 3D Micro-Dotted Particle Cloud Engine (Three.js)
     // -------------------------------------------------------------------------
-    let scene, camera, renderer, controls, organGroup;
+    let scene, camera, renderer, controls, organPointCloud, organParticleGroup;
 
     function initThreeJS() {
       const container = document.getElementById('threejs-container');
@@ -908,10 +1003,10 @@
       const height = container.clientHeight;
 
       scene = new THREE.Scene();
-      scene.background = new THREE.Color(0x080e18);
+      scene.background = new THREE.Color(0x030a08);
 
       camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
-      camera.position.set(0, 5, 26);
+      camera.position.set(0, 3, 24);
 
       renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
       renderer.setSize(width, height);
@@ -921,30 +1016,26 @@
       controls = new THREE.OrbitControls(camera, renderer.domElement);
       controls.enableDamping = true;
       controls.dampingFactor = 0.05;
-      controls.maxDistance = 45;
-      controls.minDistance = 10;
+      controls.maxDistance = 40;
+      controls.minDistance = 8;
 
       // Lights
-      const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
+      const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
       scene.add(ambientLight);
 
-      const dirLight = new THREE.DirectionalLight(0x00f0ff, 1.2);
+      const dirLight = new THREE.DirectionalLight(0x00f5a0, 1.5);
       dirLight.position.set(10, 20, 15);
       scene.add(dirLight);
 
-      const bluePointLight = new THREE.PointLight(0x38bdf8, 2, 50);
-      bluePointLight.position.set(-10, -10, 10);
-      scene.add(bluePointLight);
-
       // Cryo chamber grid floor
-      const grid = new THREE.GridHelper(24, 24, 0x00f0ff, 0x14243b);
-      grid.position.y = -7;
+      const grid = new THREE.GridHelper(26, 26, 0x00f5a0, 0x0e2c22);
+      grid.position.y = -6.5;
       scene.add(grid);
 
-      organGroup = new THREE.Group();
-      scene.add(organGroup);
+      organParticleGroup = new THREE.Group();
+      scene.add(organParticleGroup);
 
-      buildVoxelOrgan('heart');
+      buildMicroDottedOrgan('heart');
 
       window.addEventListener('resize', onWindowResize);
       animate();
@@ -958,122 +1049,163 @@
       renderer.setSize(container.clientWidth, container.clientHeight);
     }
 
-    // Procedural Voxel Builder for Organs
-    function buildVoxelOrgan(type) {
-      // Clear previous organ voxels
-      while (organGroup.children.length > 0) {
-        const obj = organGroup.children[0];
-        organGroup.remove(obj);
+    // Procedural Realistic Micro-Dotted Mesh Builder
+    function buildMicroDottedOrgan(type) {
+      while (organParticleGroup.children.length > 0) {
+        const obj = organParticleGroup.children[0];
+        if (obj.geometry) obj.geometry.dispose();
+        if (obj.material) obj.material.dispose();
+        organParticleGroup.remove(obj);
       }
 
-      const voxelSize = 0.75;
-      const boxGeo = new THREE.BoxGeometry(voxelSize, voxelSize, voxelSize);
-
+      const points = [];
+      const colors = [];
       const organConfig = ORGAN_DATA[type];
-      const primaryMat = new THREE.MeshStandardMaterial({
-        color: organConfig.color,
-        roughness: 0.3,
-        metalness: 0.2,
-        emissive: organConfig.color,
-        emissiveIntensity: 0.15
-      });
-
-      const accentMat = new THREE.MeshStandardMaterial({
-        color: organConfig.accent,
-        roughness: 0.2,
-        metalness: 0.4,
-        emissive: organConfig.accent,
-        emissiveIntensity: 0.3
-      });
-
-      const voxels = [];
+      const primaryColor = new THREE.Color(organConfig.color);
+      const accentColor = new THREE.Color(organConfig.secondaryColor);
 
       if (type === 'heart') {
-        // Pixelated Cardiac Anatomy
-        for (let x = -4; x <= 4; x++) {
-          for (let y = -4; y <= 5; y++) {
-            for (let z = -3; z <= 3; z++) {
-              // Heart shape equation approximation
-              const nx = x / 3.5;
-              const ny = y / 4.0;
-              const nz = z / 3.0;
-              const d = Math.pow(nx*nx + 2.25*ny*ny + nz*nz - 1, 3) - nx*nx*nz*nz*nz - 0.1125*ny*ny*nz*nz*nz;
-              if (d <= 0.1) {
-                voxels.push({ x, y, z, mat: primaryMat });
-              }
-            }
-          }
+        // High-Density Micro-Dotted Anatomical Cardiac Geometry (4500+ micro-dots)
+        for (let i = 0; i < 4800; i++) {
+          const u = Math.random() * Math.PI * 2;
+          const v = Math.random() * Math.PI;
+          const r = Math.pow(Math.random(), 0.3) * 4.2;
+
+          // Anatomical ventricle + atrium heart shape
+          let x = 16 * Math.pow(Math.sin(u), 3) * (r / 4.2) * 0.28;
+          let y = (13 * Math.cos(u) - 5 * Math.cos(2*u) - 2 * Math.cos(3*u) - Math.cos(4*u)) * (r / 4.2) * 0.28;
+          let z = (Math.cos(v) * 2.8) * (1.0 - Math.abs(y)/6.0);
+
+          // Tilt to realistic cardiac apex angle
+          x += Math.sin(y * 0.2) * 0.5;
+          points.push(x, y, z);
+
+          // Gradient color from apex to aortic base
+          const lerpVal = (y + 4) / 8;
+          const c = primaryColor.clone().lerp(accentColor, lerpVal);
+          colors.push(c.r, c.g, c.b);
         }
-        // Aorta and Superior Vena Cava tubes
-        for (let y = 4; y <= 7; y++) {
-          voxels.push({ x: 1, y, z: 0, mat: accentMat });
-          voxels.push({ x: 0, y, z: 1, mat: accentMat });
-          voxels.push({ x: -1, y: y-1, z: 0, mat: accentMat });
+
+        // Ascending Aorta Arch & Pulmonary Arterial Branches
+        for (let i = 0; i < 800; i++) {
+          const theta = Math.random() * Math.PI * 2;
+          const t = Math.random() * 3.5;
+          const rad = 0.7 + Math.random() * 0.2;
+          const x = Math.cos(theta) * rad + Math.sin(t * 0.8) * 1.2;
+          const y = 3.2 + t;
+          const z = Math.sin(theta) * rad - (t * 0.4);
+          points.push(x, y, z);
+          colors.push(accentColor.r, accentColor.g, accentColor.b);
         }
       } 
       else if (type === 'kidney') {
-        // Pixelated Renal Allograft (Bean shape)
-        for (let x = -3; x <= 4; x++) {
-          for (let y = -5; y <= 5; y++) {
-            for (let z = -3; z <= 3; z++) {
-              const r = Math.sqrt(x*x*1.2 + y*y*0.45 + z*z*1.2);
-              const isHilusIndent = (x < 0 && Math.abs(y) < 2 && Math.abs(z) < 2);
-              if (r < 4.2 && !isHilusIndent) {
-                voxels.push({ x, y, z, mat: primaryMat });
-              }
-            }
+        // Realistic Renal Allograft Bean Geometry (4000+ micro-dots)
+        for (let i = 0; i < 4200; i++) {
+          const theta = Math.random() * Math.PI * 2;
+          const phi = (Math.random() - 0.5) * Math.PI;
+          const rad = 4.0 * Math.pow(Math.random(), 0.3);
+
+          let x = Math.cos(theta) * Math.cos(phi) * rad * 0.8;
+          let y = Math.sin(phi) * rad * 1.4;
+          let z = Math.sin(theta) * Math.cos(phi) * rad * 0.65;
+
+          // Hilum renal indentation
+          if (x < 0) {
+            const indent = Math.exp(-(y*y)/4 - (z*z)/4) * 1.6;
+            x += indent;
           }
+
+          points.push(x, y, z);
+          const lerpVal = (x + 3) / 6;
+          const c = primaryColor.clone().lerp(accentColor, lerpVal);
+          colors.push(c.r, c.g, c.b);
         }
-        // Renal artery / vein
-        for (let x = -4; x <= -1; x++) {
-          voxels.push({ x, y: 0.5, z: 0, mat: accentMat });
-          voxels.push({ x, y: -0.5, z: 0, mat: primaryMat });
+
+        // Renal Artery, Vein and Ureter
+        for (let i = 0; i < 600; i++) {
+          const t = Math.random() * 2.5;
+          const rad = 0.4;
+          const ang = Math.random() * Math.PI * 2;
+          const x = -1.2 - t;
+          const y = Math.sin(ang) * rad + (t * 0.3);
+          const z = Math.cos(ang) * rad;
+          points.push(x, y, z);
+          colors.push(accentColor.r, accentColor.g, accentColor.b);
         }
       } 
       else if (type === 'liver') {
-        // Pixelated Hepatic Graft (Wedge shape)
-        for (let x = -5; x <= 5; x++) {
-          for (let y = -4; y <= 4; y++) {
-            for (let z = -4; z <= 4; z++) {
-              if ((x + y + z < 6) && (x*x*0.4 + y*y*0.8 + z*z*0.5 < 16) && (y > -3)) {
-                voxels.push({ x, y, z, mat: primaryMat });
-              }
-            }
+        // Realistic Hepatic Wedge Lobes (4500+ micro-dots)
+        for (let i = 0; i < 4500; i++) {
+          const u = Math.random();
+          const v = Math.random();
+          const w = Math.random();
+
+          let x = (u - 0.5) * 8.5;
+          let y = (v - 0.5) * 5.5;
+          let z = (w - 0.5) * 4.5;
+
+          // Hepatic asymmetric wedge formula
+          if (x*x/18 + y*y/8 + z*z/6 < 1.0 && (y + z * 0.5 < 1.8) && (x < 0 || (x > 0 && y > -1.8))) {
+            points.push(x, y, z);
+            const lerpVal = (x + 4) / 8;
+            const c = primaryColor.clone().lerp(accentColor, lerpVal);
+            colors.push(c.r, c.g, c.b);
           }
-        }
-        // Portal vein & bile duct
-        for (let y = -4; y <= -2; y++) {
-          voxels.push({ x: 0, y, z: 1, mat: accentMat });
-          voxels.push({ x: 1, y, z: 1, mat: accentMat });
         }
       } 
       else if (type === 'lung') {
-        // Pixelated Bilateral Pulmonary Lobes
-        for (let side of [-3.5, 3.5]) {
-          for (let x = -2; x <= 2; x++) {
-            for (let y = -5; y <= 4; y++) {
-              for (let z = -2.5; z <= 2.5; z++) {
-                if (x*x + y*y*0.35 + z*z < 8.5) {
-                  voxels.push({ x: x + side, y, z, mat: primaryMat });
-                }
-              }
+        // Realistic Bilateral Multi-Lobe Pulmonary Tree (5000+ micro-dots)
+        for (let side of [-2.8, 2.8]) {
+          for (let i = 0; i < 2200; i++) {
+            const theta = Math.random() * Math.PI * 2;
+            const phi = (Math.random() - 0.5) * Math.PI;
+            const rad = 3.6 * Math.pow(Math.random(), 0.3);
+
+            let x = Math.cos(theta) * Math.cos(phi) * rad * 0.7 + side;
+            let y = Math.sin(phi) * rad * 1.3 - 0.5;
+            let z = Math.sin(theta) * Math.cos(phi) * rad * 0.6;
+
+            // Concave mediastinal surface
+            if ((side < 0 && x > side + 0.8) || (side > 0 && x < side - 0.8)) {
+              x += (side < 0 ? -0.4 : 0.4);
             }
+
+            points.push(x, y, z);
+            const c = primaryColor.clone().lerp(accentColor, Math.random() * 0.6);
+            colors.push(c.r, c.g, c.b);
           }
         }
-        // Trachea & Main Bronchi
-        for (let y = 2; y <= 7; y++) {
-          voxels.push({ x: 0, y, z: 0, mat: accentMat });
+
+        // Trachea and primary bronchi
+        for (let i = 0; i < 600; i++) {
+          const t = Math.random() * 3.5;
+          const ang = Math.random() * Math.PI * 2;
+          const rad = 0.45;
+          let x = Math.cos(ang) * rad;
+          let y = 1.8 + t;
+          let z = Math.sin(ang) * rad;
+          if (t < 1.2) {
+            x += (Math.random() > 0.5 ? 1 : -1) * (1.2 - t);
+          }
+          points.push(x, y, z);
+          colors.push(accentColor.r, accentColor.g, accentColor.b);
         }
-        voxels.push({ x: -1.5, y: 3, z: 0, mat: accentMat });
-        voxels.push({ x: 1.5, y: 3, z: 0, mat: accentMat });
       }
 
-      // Add cubes to organ group
-      voxels.forEach(v => {
-        const mesh = new THREE.Mesh(boxGeo, v.mat);
-        mesh.position.set(v.x * voxelSize, v.y * voxelSize, v.z * voxelSize);
-        organGroup.add(mesh);
+      const geometry = new THREE.BufferGeometry();
+      geometry.setAttribute('position', new THREE.Float32BufferAttribute(points, 3));
+      geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
+
+      const material = new THREE.PointsMaterial({
+        size: 0.11,
+        vertexColors: true,
+        transparent: true,
+        opacity: 0.88,
+        blending: THREE.AdditiveBlending
       });
+
+      organPointCloud = new THREE.Points(geometry, material);
+      organParticleGroup.add(organPointCloud);
     }
 
     let clock = new THREE.Clock();
@@ -1082,25 +1214,25 @@
       requestAnimationFrame(animate);
       const elapsedTime = clock.getElapsedTime();
 
-      if (organGroup) {
+      if (organParticleGroup) {
         // Floating levitation
-        organGroup.position.y = Math.sin(elapsedTime * 1.8) * 0.45;
+        organParticleGroup.position.y = Math.sin(elapsedTime * 1.8) * 0.4;
         // Rotation
-        organGroup.rotation.y = elapsedTime * 0.45;
+        organParticleGroup.rotation.y = elapsedTime * 0.4;
 
-        // Dynamic pulsing (heartbeat or respiration)
+        // Dynamic contraction/pulse
         let scale = 1.0;
         if (currentOrgan === 'heart') {
-          // Double thump heartbeat pulse
-          scale = 1.0 + Math.pow(Math.sin(elapsedTime * 5.0), 10) * 0.08 + Math.pow(Math.sin(elapsedTime * 5.0 - 0.4), 10) * 0.04;
+          // Double thump sinus rhythm contraction
+          scale = 1.0 + Math.pow(Math.sin(elapsedTime * 5.0), 12) * 0.09 + Math.pow(Math.sin(elapsedTime * 5.0 - 0.4), 12) * 0.04;
         } else if (currentOrgan === 'lung') {
-          // Slow breathing wave
-          scale = 1.0 + Math.sin(elapsedTime * 2.0) * 0.06;
+          // Volumetric respiratory tidal expansion
+          scale = 1.0 + Math.sin(elapsedTime * 2.2) * 0.07;
         } else {
-          // Subtle perfusion shimmer
+          // Micro perfusion shimmer
           scale = 1.0 + Math.sin(elapsedTime * 2.5) * 0.02;
         }
-        organGroup.scale.set(scale, scale, scale);
+        organParticleGroup.scale.set(scale, scale, scale);
       }
 
       controls.update();
@@ -1136,8 +1268,8 @@
             {
               label: 'Organ Chamber Ref (°C)',
               data: chamberData,
-              borderColor: '#00F0FF',
-              backgroundColor: 'rgba(0, 240, 255, 0.1)',
+              borderColor: '#38E1FF',
+              backgroundColor: 'rgba(56, 225, 255, 0.1)',
               borderWidth: 2,
               fill: true,
               tension: 0.3
@@ -1145,7 +1277,7 @@
             {
               label: 'Peltier Cold (°C)',
               data: peltierData,
-              borderColor: '#10B981',
+              borderColor: '#00F5A0',
               borderWidth: 2,
               tension: 0.3
             },
@@ -1167,11 +1299,11 @@
           },
           scales: {
             x: {
-              grid: { color: 'rgba(31, 55, 88, 0.4)' },
+              grid: { color: 'rgba(20, 60, 46, 0.4)' },
               ticks: { color: '#94A3B8', font: { family: 'ui-monospace', size: 10 } }
             },
             y: {
-              grid: { color: 'rgba(31, 55, 88, 0.4)' },
+              grid: { color: 'rgba(20, 60, 46, 0.4)' },
               ticks: { color: '#94A3B8', font: { family: 'ui-monospace', size: 10 } }
             }
           }
@@ -1182,7 +1314,7 @@
     // -------------------------------------------------------------------------
     // Real-Time Telemetry & Log Stream Engine
     // -------------------------------------------------------------------------
-    let elapsedSeconds = 9978; // 2h 46m 18s
+    let elapsedSeconds = 9978;
 
     function formatHMS(sec) {
       const h = Math.floor(sec / 3600).toString().padStart(2, '0');
@@ -1197,10 +1329,10 @@
       const hash = '0x' + Math.floor(Math.random()*0xFFFFFF).toString(16).padStart(6, '0').toUpperCase();
       
       const entry = document.createElement('div');
-      entry.className = 'flex items-start gap-2 border-b border-cryo-800 pb-1';
+      entry.className = 'flex items-start gap-2 border-b border-theme-800 pb-1';
       
-      let badgeColor = 'text-cryo-cyan';
-      if (type === 'WATCHDOG') badgeColor = 'text-emerald-400';
+      let badgeColor = 'text-theme-emerald';
+      if (type === 'WATCHDOG') badgeColor = 'text-theme-cyan';
       if (type === 'ALERT') badgeColor = 'text-rose-400';
       if (type === 'RFID_SCAN') badgeColor = 'text-amber-400';
 
@@ -1217,10 +1349,10 @@
 
     function addSimulatedEvent() {
       const events = [
-        { type: 'THERMAL', msg: 'PID modulated Peltier duty cycle to 67% (cold side 2.08°C)' },
+        { type: 'THERMAL', msg: 'Peltier PID loop fine-tuned to 64% PWM (target 2.0°C)' },
         { type: 'WATCHDOG', msg: 'VEGA ET1031 hardware safety heartbeat tick acknowledged' },
-        { type: 'IMU', msg: 'MPU6050 transient bump recorded: 0.42g (within safe <1.5g threshold)' },
-        { type: 'TEG_POWER', msg: 'LTC3108 harvested +445mW from ΔT 30.7°C' }
+        { type: 'IMU', msg: 'MPU6050 vibration RMS measured at 0.03 m/s² (Normal)' },
+        { type: 'TEG_POWER', msg: 'LTC3108 energy-harvesting recovery active (+422 mW)' }
       ];
       const ev = events[Math.floor(Math.random() * events.length)];
       addLogEntry(ev.type, ev.msg);
@@ -1238,7 +1370,6 @@
       document.getElementById('rtcWallClock').innerText = now.toLocaleTimeString('en-US', { hour12: false });
       document.getElementById('rtcDate').innerText = now.toISOString().split('T')[0] + ' (IST)';
 
-      // Jitter live thermal sensors slightly
       const currentChamber = (2.2 + (Math.random() * 0.08 - 0.04)).toFixed(1);
       const currentCold = (2.1 + (Math.random() * 0.1 - 0.05)).toFixed(1);
       const currentHot = (32.8 + (Math.random() * 0.3 - 0.15)).toFixed(1);
@@ -1250,41 +1381,34 @@
       document.getElementById('ambientTemp').innerText = `${currentAmb}°C`;
       document.getElementById('organCoreDisplay').innerText = `${currentChamber}°C`;
 
-      // Update Chart every 5 seconds
       if (elapsedSeconds % 5 === 0 && tempChart) {
         chartLabels.shift();
         chartLabels.push(now.toLocaleTimeString('en-US', { hour12: false, minute: '2-digit', second: '2-digit' }));
-        
         chamberData.shift();
         chamberData.push(parseFloat(currentChamber));
-
         peltierData.shift();
         peltierData.push(parseFloat(currentCold));
-
         ambientData.shift();
         ambientData.push(parseFloat(currentAmb));
-
         tempChart.update('none');
       }
 
-      // Jitter vibration and power slightly
-      document.getElementById('vibrationLevel').innerText = (0.02 + Math.random() * 0.03).toFixed(2) + ' m/s²';
+      document.getElementById('vibrationLevel').innerText = (0.02 + Math.random() * 0.02).toFixed(2) + ' m/s²';
       document.getElementById('fanRpm').innerText = (3470 + Math.floor(Math.random() * 30)) + ' RPM';
-      document.getElementById('tegPower').innerText = '+' + (410 + Math.floor(Math.random() * 25)) + ' mW';
+      document.getElementById('tegPower').innerText = '+' + (415 + Math.floor(Math.random() * 20)) + ' mW';
     }, 1000);
 
-    // Periodic Watchdog and Telemetry Logs
     setInterval(() => {
       addSimulatedEvent();
     }, 12000);
 
-    // Initial logs on page load
+    // Initial setup on load
     window.addEventListener('DOMContentLoaded', () => {
       initThreeJS();
       initChart();
-      addLogEntry('BOOT', 'VEGA ET1031 RISC-V SoC dual-kernel FreeRTOS started');
-      addLogEntry('WATCHDOG', 'Hardware watchdog timer armed at 500ms timeout');
-      addLogEntry('SENSORS', 'MPU6050, Dallas 1-Wire, DS3231 RTC bus linked on I2C/SPI');
+      addLogEntry('BOOT', 'Hybrid - Cryo platform initialized on VEGA ET1031 SoC');
+      addLogEntry('WATCHDOG', 'Hardware safety watchdog armed at 500ms timeout');
+      addLogEntry('SENSORS', 'MPU6050, DS3231 RTC, Dallas 1-Wire linked');
       addLogEntry('RFID_SCAN', 'Active payload verified: Human Cardiac Graft [RFID-9942-HRT]');
     });
   </script>
