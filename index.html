@@ -233,151 +233,74 @@
     <!-- ===================================================================== -->
     <div id="view-dashboard" class="space-y-6">
 
-      <!-- ORGAN SCANNER & REALISTIC 3D MICRO-DOTTED ORGAN VIEWPORT -->
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+      <!-- ORGAN SCANNER & REALISTIC 3D MICRO-DOTTED ORGAN VIEWPORT (FULL WIDTH) -->
+      <div class="w-full bg-theme-900 border border-theme-800 rounded-3xl p-6 relative overflow-hidden shadow-xl">
+        <div class="scanline absolute inset-0 pointer-events-none opacity-40"></div>
         
-        <!-- Left: 3D Micro-Dotted Floating Organ Viewport (7 Cols) -->
-        <div class="lg:col-span-7 bg-theme-900 border border-theme-800 rounded-3xl p-5 relative overflow-hidden flex flex-col justify-between shadow-xl">
-          <div class="scanline absolute inset-0 pointer-events-none opacity-40"></div>
-          
-          <!-- Top Overlay Controls -->
-          <div class="flex items-center justify-between relative z-10">
-            <div>
-              <div class="flex items-center gap-2">
-                <span class="w-2.5 h-2.5 rounded-full bg-theme-emerald animate-ping"></span>
-                <h2 class="text-sm font-black tracking-wider uppercase text-white">3D Micro-Dotted Organ Chamber</h2>
-              </div>
-              <p class="text-[11px] text-theme-emerald font-mono" id="organNameDisplay">HUMAN CARDIAC GRAFT (HEART) • DOTTED MATRIX</p>
-            </div>
-            
-            <!-- Organ Scanner Dropdown -->
-            <div class="flex items-center gap-2 bg-theme-950/90 p-1.5 rounded-2xl border border-theme-700">
-              <label class="text-[10px] font-mono uppercase text-slate-400 px-2 flex items-center gap-1">
-                <i data-lucide="scan-line" class="w-3.5 h-3.5 text-theme-emerald"></i> Scan Organ:
-              </label>
-              <select id="organSelector" onchange="changeOrgan(this.value)"
-                class="bg-theme-900 border border-theme-700 text-xs text-white rounded-xl px-3 py-1 font-mono focus:outline-none focus:border-theme-emerald">
-                <option value="heart">Heart (Cardiac Graft)</option>
-                <option value="kidney">Kidney (Renal Allograft)</option>
-                <option value="liver">Liver (Hepatic Graft)</option>
-                <option value="lung">Lung (Pulmonary Graft)</option>
-              </select>
-            </div>
-          </div>
-
-          <!-- Interactive 3D Micro-Particle Canvas Container -->
-          <div class="relative w-full h-80 my-2 rounded-2xl bg-theme-950/80 border border-theme-800 overflow-hidden flex items-center justify-center">
-            <div id="threejs-container" class="w-full h-full cursor-grab active:cursor-grabbing"></div>
-            
-            <!-- Chamber Overlay HUD Tags -->
-            <div class="absolute bottom-3 left-3 bg-theme-950/90 backdrop-blur-md px-3 py-1.5 rounded-xl border border-theme-800 text-[10px] font-mono text-slate-300 space-y-0.5">
-              <div>RFID TAG: <span class="text-theme-emerald font-bold" id="organTagDisplay">RFID-9942-HRT</span></div>
-              <div>CRYO PERFUSION: <span class="text-theme-cyan font-bold">UW Solution (0.8 mL/min)</span></div>
-            </div>
-
-            <div class="absolute bottom-3 right-3 bg-theme-950/90 backdrop-blur-md px-3 py-1.5 rounded-xl border border-theme-800 text-[10px] font-mono text-right text-slate-300">
-              <div>ORGAN CORE TEMP</div>
-              <div class="text-xl font-black text-theme-emerald" id="organCoreDisplay">2.2°C</div>
-            </div>
-
-            <div class="absolute top-3 left-3 text-[10px] font-mono text-slate-500">
-              Interactive Micro-Particle Mesh • Drag to rotate
-            </div>
-          </div>
-
-          <!-- Bottom Organ Quick Specs Bar -->
-          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-2 border-t border-theme-800 text-xs font-mono relative z-10">
-            <div class="bg-theme-950/70 p-2.5 rounded-xl border border-theme-800">
-              <span class="text-[10px] text-slate-400 block">DONOR MATCH</span>
-              <span class="text-white font-bold" id="donorMatchDisplay">O- POSITIVE</span>
-            </div>
-            <div class="bg-theme-950/70 p-2.5 rounded-xl border border-theme-800">
-              <span class="text-[10px] text-slate-400 block">ISCHEMIC LIMIT</span>
-              <span class="text-theme-cyan font-bold" id="ischemicLimitDisplay">4.0 - 6.0 HRS</span>
-            </div>
-            <div class="bg-theme-950/70 p-2.5 rounded-xl border border-theme-800">
-              <span class="text-[10px] text-slate-400 block">SAFE CRYO BAND</span>
-              <span class="text-theme-emerald font-bold">0.5°C - 3.5°C</span>
-            </div>
-            <div class="bg-theme-950/70 p-2.5 rounded-xl border border-theme-800">
-              <span class="text-[10px] text-slate-400 block">PERFUSION STATUS</span>
-              <span class="text-theme-emerald font-bold" id="perfusionDisplay">PULSATILE OK</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Right: Module 2 - Viability & Real-Time Transit Chronometry (5 Cols) -->
-        <div class="lg:col-span-5 bg-theme-900 border border-theme-800 rounded-3xl p-5 shadow-xl flex flex-col justify-between space-y-4">
-          <div class="flex items-center justify-between border-b border-theme-800 pb-3">
+        <!-- Top Overlay Controls -->
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 relative z-10 mb-4">
+          <div>
             <div class="flex items-center gap-2">
-              <i data-lucide="activity" class="w-5 h-5 text-theme-emerald"></i>
-              <h2 class="text-sm font-black uppercase tracking-wider text-white">Viability & Transit Chronometry</h2>
+              <span class="w-2.5 h-2.5 rounded-full bg-theme-emerald animate-ping"></span>
+              <h2 class="text-sm font-black tracking-wider uppercase text-white">3D Micro-Dotted Organ Cryo-Chamber</h2>
             </div>
-            <span class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-theme-emerald/20 text-theme-emerald border border-theme-emerald/40 font-bold">
-              ML ALGORITHM PASS
-            </span>
+            <p class="text-[11px] text-theme-emerald font-mono" id="organNameDisplay">HUMAN CARDIAC GRAFT (HEART) • DOTTED MATRIX</p>
           </div>
-
-          <!-- Large Viability Score Gauge -->
-          <div class="bg-theme-950/80 rounded-2xl p-4 border border-theme-800 flex items-center justify-between">
-            <div>
-              <p class="text-xs font-bold uppercase text-slate-400 tracking-wider">ML Organ Viability Score</p>
-              <div class="text-4xl font-black text-white mt-1 flex items-baseline gap-1 font-mono">
-                <span id="viabilityScore" class="text-theme-emerald">98.4</span>
-                <span class="text-sm text-slate-400">/ 100</span>
-              </div>
-              <p class="text-[11px] text-slate-400 mt-1">Multi-sensor fused cellular model on VEGA core</p>
-            </div>
-            <div class="w-20 h-20 rounded-full border-4 border-theme-emerald/20 border-t-theme-emerald flex items-center justify-center">
-              <i data-lucide="heart-pulse" class="w-8 h-8 text-theme-emerald animate-pulse"></i>
-            </div>
-          </div>
-
-          <!-- Time & Excursion Breakdown Grid -->
-          <div class="grid grid-cols-2 gap-3 font-mono">
-            <div class="bg-theme-950/80 p-3 rounded-2xl border border-theme-800">
-              <div class="text-[10px] text-slate-400 uppercase flex items-center gap-1">
-                <i data-lucide="clock" class="w-3 h-3 text-theme-emerald"></i> Elapsed Transit
-              </div>
-              <div class="text-xl font-bold text-white mt-1" id="elapsedTransitTime">02:47:18</div>
-              <div class="text-[9px] text-slate-400">Source: DS3231 RTC</div>
-            </div>
-
-            <div class="bg-theme-950/80 p-3 rounded-2xl border border-theme-800">
-              <div class="text-[10px] text-slate-400 uppercase flex items-center gap-1">
-                <i data-lucide="hourglass" class="w-3 h-3 text-theme-cyan"></i> Safe Window Left
-              </div>
-              <div class="text-xl font-bold text-theme-cyan mt-1" id="safeWindowTime">03:12:42</div>
-              <div class="text-[9px] text-slate-400">Viability Threshold: >80%</div>
-            </div>
-
-            <div class="bg-theme-950/80 p-3 rounded-2xl border border-theme-800">
-              <div class="text-[10px] text-slate-400 uppercase flex items-center gap-1">
-                <i data-lucide="alert-triangle" class="w-3 h-3 text-theme-amber"></i> Out-of-Band Time
-              </div>
-              <div class="text-xl font-bold text-theme-emerald mt-1" id="cumulativeExcursion">00:00:00</div>
-              <div class="text-[9px] text-slate-400">Medical Audit Zero-Excursion</div>
-            </div>
-
-            <div class="bg-theme-950/80 p-3 rounded-2xl border border-theme-800">
-              <div class="text-[10px] text-slate-400 uppercase flex items-center gap-1">
-                <i data-lucide="calendar" class="w-3 h-3 text-slate-400"></i> RTC Timestamp
-              </div>
-              <div class="text-lg font-bold text-white mt-1" id="rtcWallClock">21:26:50</div>
-              <div class="text-[9px] text-slate-400" id="rtcDate">2026-08-30 (IST)</div>
-            </div>
-          </div>
-
-          <div class="bg-theme-950/50 p-2.5 rounded-xl border border-theme-800 text-xs flex items-center justify-between">
-            <span class="text-slate-400 font-mono">Transit Route:</span>
-            <span class="text-white font-semibold">City General Hospital ➔ Apollo Transplant Centre</span>
+          
+          <!-- Organ Scanner Dropdown -->
+          <div class="flex items-center gap-2 bg-theme-950/90 p-1.5 rounded-2xl border border-theme-700">
+            <label class="text-[10px] font-mono uppercase text-slate-400 px-2 flex items-center gap-1">
+              <i data-lucide="scan-line" class="w-3.5 h-3.5 text-theme-emerald"></i> Scan Organ:
+            </label>
+            <select id="organSelector" onchange="changeOrgan(this.value)"
+              class="bg-theme-900 border border-theme-700 text-xs text-white rounded-xl px-3 py-1 font-mono focus:outline-none focus:border-theme-emerald">
+              <option value="heart">Heart (Cardiac Graft)</option>
+              <option value="kidney">Kidney (Renal Allograft)</option>
+              <option value="liver">Liver (Hepatic Graft)</option>
+              <option value="lung">Lung (Pulmonary Graft)</option>
+            </select>
           </div>
         </div>
 
+        <!-- Interactive 3D Micro-Particle Canvas Container -->
+        <div class="relative w-full h-96 my-2 rounded-2xl bg-theme-950/80 border border-theme-800 overflow-hidden flex items-center justify-center">
+          <div id="threejs-container" class="w-full h-full cursor-grab active:cursor-grabbing"></div>
+          
+          <!-- Chamber Overlay HUD Tags -->
+          <div class="absolute bottom-4 left-4 bg-theme-950/90 backdrop-blur-md px-3.5 py-2 rounded-xl border border-theme-800 text-[11px] font-mono text-slate-300 space-y-0.5">
+            <div>RFID IDENTIFIER: <span class="text-theme-emerald font-bold" id="organTagDisplay">RFID-9942-HRT</span></div>
+            <div>STATUS: <span class="text-theme-cyan font-bold">CRYOGENIC PRESERVATION ACTIVE</span></div>
+          </div>
+
+          <div class="absolute bottom-4 right-4 bg-theme-950/90 backdrop-blur-md px-4 py-2 rounded-xl border border-theme-800 text-[11px] font-mono text-right text-slate-300">
+            <div>ORGAN CORE TEMP</div>
+            <div class="text-2xl font-black text-theme-emerald" id="organCoreDisplay">2.2°C</div>
+          </div>
+
+          <div class="absolute top-4 left-4 text-[10px] font-mono text-slate-500">
+            Interactive 3D Micro-Point Cloud • Click and drag to rotate • Scroll to zoom
+          </div>
+        </div>
+
+        <!-- Bottom Organ Quick Specs Bar (Clean 3-Item Layout) -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-3 border-t border-theme-800 text-xs font-mono relative z-10">
+          <div class="bg-theme-950/70 p-3 rounded-2xl border border-theme-800">
+            <span class="text-[10px] text-slate-400 block mb-0.5">DONOR MATCH</span>
+            <span class="text-white font-bold text-sm" id="donorMatchDisplay">O- POSITIVE</span>
+          </div>
+          <div class="bg-theme-950/70 p-3 rounded-2xl border border-theme-800">
+            <span class="text-[10px] text-slate-400 block mb-0.5">ISCHEMIC TIME LIMIT</span>
+            <span class="text-theme-cyan font-bold text-sm" id="ischemicLimitDisplay">4.0 - 6.0 HRS</span>
+          </div>
+          <div class="bg-theme-950/70 p-3 rounded-2xl border border-theme-800">
+            <span class="text-[10px] text-slate-400 block mb-0.5">SAFE CRYO TEMPERATURE BAND</span>
+            <span class="text-theme-emerald font-bold text-sm">0.5°C - 3.5°C</span>
+          </div>
+        </div>
       </div>
 
       <!-- ===================================================================== -->
-      <!-- 8 CORE MONITORING MODULES GRID                                         -->
+      <!-- CORE MONITORING MODULES GRID                                          -->
       <!-- ===================================================================== -->
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
 
@@ -681,7 +604,7 @@
           </div>
           <ul class="text-sm text-slate-300 space-y-2.5 list-disc pl-5">
             <li>Traditional organ transport relies on basic ice-coolers with high rates of freezing injury or thermal overshoot.</li>
-            <li>Commercial continuous-perfusion systems (e.g. Paragonix, TransMedics) cost between $25,000 to $65,000 per transit and mandate dedicated clinical perfusionists.</li>
+            <li>Commercial continuous-perfusion systems cost between $25,000 to $65,000 per transit and mandate dedicated clinical perfusionists.</li>
             <li>Zero tamper-evident proof of transit shocks, lid-opening, or temperature spikes creates legal liabilities and graft loss.</li>
           </ul>
         </div>
@@ -739,9 +662,9 @@
           <div class="w-12 h-12 rounded-2xl bg-theme-800 border border-theme-teal/40 flex items-center justify-center text-theme-teal group-hover:scale-110 transition">
             <i data-lucide="sparkles" class="w-6 h-6"></i>
           </div>
-          <h3 class="text-lg font-bold text-white">ML Organ Viability Forecasting</h3>
+          <h3 class="text-lg font-bold text-white">Automated Thermal Protection</h3>
           <p class="text-xs text-slate-300 leading-relaxed">
-            On-device and cloud-synchronized machine learning scoring estimating cellular viability index in real-time based on cumulative ischemic time, perfusion stability, and thermal curve gradients.
+            Autonomous dual-zone thermal safeguards with independent hardware watchdog override and temperature excursion containment.
           </p>
         </div>
 
@@ -938,8 +861,6 @@
         tag: 'RFID-9942-HRT',
         donor: 'O- POSITIVE',
         ischemicLimit: '4.0 - 6.0 HRS',
-        perfusion: 'PULSATILE OK',
-        viability: 98.4,
         color: 0x00F5A0, // Dotted Emerald Neon
         secondaryColor: 0x38E1FF
       },
@@ -948,8 +869,6 @@
         tag: 'RFID-7718-KDN',
         donor: 'A+ POSITIVE',
         ischemicLimit: '24.0 - 36.0 HRS',
-        perfusion: 'CONTINUOUS FLOW',
-        viability: 99.1,
         color: 0x00F5A0,
         secondaryColor: 0xF59E0B
       },
@@ -958,8 +877,6 @@
         tag: 'RFID-5521-LVR',
         donor: 'B+ POSITIVE',
         ischemicLimit: '8.0 - 12.0 HRS',
-        perfusion: 'DUAL-VESSEL PERFUSED',
-        viability: 97.8,
         color: 0x00F5A0,
         secondaryColor: 0x10B981
       },
@@ -968,8 +885,6 @@
         tag: 'RFID-3382-LNG',
         donor: 'AB+ POSITIVE',
         ischemicLimit: '6.0 - 8.0 HRS',
-        perfusion: 'VENTILATED / PERFUSED',
-        viability: 96.5,
         color: 0x38E1FF,
         secondaryColor: 0x00F5A0
       }
@@ -985,8 +900,6 @@
       document.getElementById('organTagDisplay').innerText = data.tag;
       document.getElementById('donorMatchDisplay').innerText = data.donor;
       document.getElementById('ischemicLimitDisplay').innerText = data.ischemicLimit;
-      document.getElementById('perfusionDisplay').innerText = data.perfusion;
-      document.getElementById('viabilityScore').innerText = data.viability;
 
       buildMicroDottedOrgan(organKey);
       addLogEntry('RFID_SCAN', `Scanned organ tag verified: ${data.name} [${data.tag}]`);
@@ -1065,28 +978,25 @@
       const accentColor = new THREE.Color(organConfig.secondaryColor);
 
       if (type === 'heart') {
-        // High-Density Micro-Dotted Anatomical Cardiac Geometry (4500+ micro-dots)
+        // High-Density Micro-Dotted Anatomical Cardiac Geometry (4800+ micro-dots)
         for (let i = 0; i < 4800; i++) {
           const u = Math.random() * Math.PI * 2;
           const v = Math.random() * Math.PI;
           const r = Math.pow(Math.random(), 0.3) * 4.2;
 
-          // Anatomical ventricle + atrium heart shape
           let x = 16 * Math.pow(Math.sin(u), 3) * (r / 4.2) * 0.28;
           let y = (13 * Math.cos(u) - 5 * Math.cos(2*u) - 2 * Math.cos(3*u) - Math.cos(4*u)) * (r / 4.2) * 0.28;
           let z = (Math.cos(v) * 2.8) * (1.0 - Math.abs(y)/6.0);
 
-          // Tilt to realistic cardiac apex angle
           x += Math.sin(y * 0.2) * 0.5;
           points.push(x, y, z);
 
-          // Gradient color from apex to aortic base
           const lerpVal = (y + 4) / 8;
           const c = primaryColor.clone().lerp(accentColor, lerpVal);
           colors.push(c.r, c.g, c.b);
         }
 
-        // Ascending Aorta Arch & Pulmonary Arterial Branches
+        // Ascending Aorta Arch & Arterial Branches
         for (let i = 0; i < 800; i++) {
           const theta = Math.random() * Math.PI * 2;
           const t = Math.random() * 3.5;
@@ -1099,7 +1009,7 @@
         }
       } 
       else if (type === 'kidney') {
-        // Realistic Renal Allograft Bean Geometry (4000+ micro-dots)
+        // Realistic Renal Allograft Bean Geometry (4200+ micro-dots)
         for (let i = 0; i < 4200; i++) {
           const theta = Math.random() * Math.PI * 2;
           const phi = (Math.random() - 0.5) * Math.PI;
@@ -1109,7 +1019,6 @@
           let y = Math.sin(phi) * rad * 1.4;
           let z = Math.sin(theta) * Math.cos(phi) * rad * 0.65;
 
-          // Hilum renal indentation
           if (x < 0) {
             const indent = Math.exp(-(y*y)/4 - (z*z)/4) * 1.6;
             x += indent;
@@ -1121,7 +1030,7 @@
           colors.push(c.r, c.g, c.b);
         }
 
-        // Renal Artery, Vein and Ureter
+        // Renal Artery, Vein & Ureter
         for (let i = 0; i < 600; i++) {
           const t = Math.random() * 2.5;
           const rad = 0.4;
@@ -1144,7 +1053,6 @@
           let y = (v - 0.5) * 5.5;
           let z = (w - 0.5) * 4.5;
 
-          // Hepatic asymmetric wedge formula
           if (x*x/18 + y*y/8 + z*z/6 < 1.0 && (y + z * 0.5 < 1.8) && (x < 0 || (x > 0 && y > -1.8))) {
             points.push(x, y, z);
             const lerpVal = (x + 4) / 8;
@@ -1165,7 +1073,6 @@
             let y = Math.sin(phi) * rad * 1.3 - 0.5;
             let z = Math.sin(theta) * Math.cos(phi) * rad * 0.6;
 
-            // Concave mediastinal surface
             if ((side < 0 && x > side + 0.8) || (side > 0 && x < side - 0.8)) {
               x += (side < 0 ? -0.4 : 0.4);
             }
@@ -1176,7 +1083,7 @@
           }
         }
 
-        // Trachea and primary bronchi
+        // Trachea & Bronchial Tree
         for (let i = 0; i < 600; i++) {
           const t = Math.random() * 3.5;
           const ang = Math.random() * Math.PI * 2;
@@ -1215,21 +1122,15 @@
       const elapsedTime = clock.getElapsedTime();
 
       if (organParticleGroup) {
-        // Floating levitation
         organParticleGroup.position.y = Math.sin(elapsedTime * 1.8) * 0.4;
-        // Rotation
         organParticleGroup.rotation.y = elapsedTime * 0.4;
 
-        // Dynamic contraction/pulse
         let scale = 1.0;
         if (currentOrgan === 'heart') {
-          // Double thump sinus rhythm contraction
           scale = 1.0 + Math.pow(Math.sin(elapsedTime * 5.0), 12) * 0.09 + Math.pow(Math.sin(elapsedTime * 5.0 - 0.4), 12) * 0.04;
         } else if (currentOrgan === 'lung') {
-          // Volumetric respiratory tidal expansion
           scale = 1.0 + Math.sin(elapsedTime * 2.2) * 0.07;
         } else {
-          // Micro perfusion shimmer
           scale = 1.0 + Math.sin(elapsedTime * 2.5) * 0.02;
         }
         organParticleGroup.scale.set(scale, scale, scale);
@@ -1314,15 +1215,6 @@
     // -------------------------------------------------------------------------
     // Real-Time Telemetry & Log Stream Engine
     // -------------------------------------------------------------------------
-    let elapsedSeconds = 9978;
-
-    function formatHMS(sec) {
-      const h = Math.floor(sec / 3600).toString().padStart(2, '0');
-      const m = Math.floor((sec % 3600) / 60).toString().padStart(2, '0');
-      const s = (sec % 60).toString().padStart(2, '0');
-      return `${h}:${m}:${s}`;
-    }
-
     function addLogEntry(type, message) {
       const logContainer = document.getElementById('logStream');
       const timeStr = new Date().toLocaleTimeString('en-US', { hour12: false });
@@ -1358,17 +1250,10 @@
       addLogEntry(ev.type, ev.msg);
     }
 
-    // Live update tick loop every 1 second
+    let tickCount = 0;
     setInterval(() => {
-      elapsedSeconds++;
-      document.getElementById('elapsedTransitTime').innerText = formatHMS(elapsedSeconds);
-      
-      const safeRemaining = Math.max(0, 21600 - elapsedSeconds);
-      document.getElementById('safeWindowTime').innerText = formatHMS(safeRemaining);
-
+      tickCount++;
       const now = new Date();
-      document.getElementById('rtcWallClock').innerText = now.toLocaleTimeString('en-US', { hour12: false });
-      document.getElementById('rtcDate').innerText = now.toISOString().split('T')[0] + ' (IST)';
 
       const currentChamber = (2.2 + (Math.random() * 0.08 - 0.04)).toFixed(1);
       const currentCold = (2.1 + (Math.random() * 0.1 - 0.05)).toFixed(1);
@@ -1381,7 +1266,7 @@
       document.getElementById('ambientTemp').innerText = `${currentAmb}°C`;
       document.getElementById('organCoreDisplay').innerText = `${currentChamber}°C`;
 
-      if (elapsedSeconds % 5 === 0 && tempChart) {
+      if (tickCount % 5 === 0 && tempChart) {
         chartLabels.shift();
         chartLabels.push(now.toLocaleTimeString('en-US', { hour12: false, minute: '2-digit', second: '2-digit' }));
         chamberData.shift();
