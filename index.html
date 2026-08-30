@@ -9,7 +9,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Lucide Icons CDN -->
   <script src="https://unpkg.com/lucide@latest"></script>
-  <!-- Three.js CDN for 3D Micro-Dotted Organ Particle Engine -->
+  <!-- Three.js CDN for 3D Micro-Dotted Anatomical Particle Engine -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <!-- OrbitControls for Three.js -->
   <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
@@ -134,7 +134,89 @@
   </div>
 
   <!-- ========================================================================= -->
-  <!-- 2. MAIN HEADER & TOP-RIGHT USER PROFILE                                   -->
+  <!-- 2. ORGAN INTAKE / RFID SCAN MODAL                                         -->
+  <!-- ========================================================================= -->
+  <div id="organIntakeModal" class="fixed inset-0 z-50 bg-theme-950/90 backdrop-blur-md hidden items-center justify-center p-4">
+    <div class="w-full max-w-lg bg-theme-900 border border-theme-700 rounded-3xl p-7 shadow-2xl relative project-glow">
+      <button onclick="closeIntakeModal()" class="absolute top-5 right-5 text-slate-400 hover:text-white">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+
+      <div class="flex items-center gap-3 mb-5 border-b border-theme-800 pb-3">
+        <div class="w-10 h-10 rounded-xl bg-theme-800 border border-theme-emerald/40 flex items-center justify-center text-theme-emerald">
+          <i data-lucide="scan" class="w-6 h-6"></i>
+        </div>
+        <div>
+          <h2 class="text-lg font-black text-white">RFID Organ Intake Registration</h2>
+          <p class="text-xs text-theme-emerald font-mono">Payload Identification & Transit Initialization</p>
+        </div>
+      </div>
+
+      <form onsubmit="handleOrganIntake(event)" class="space-y-4">
+        <!-- 1. Type of Organ -->
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">
+            1. Type of Organ <span class="text-theme-emerald">*</span>
+          </label>
+          <select id="intakeOrganType" required
+            class="w-full bg-theme-950 border border-theme-700 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-theme-emerald font-mono">
+            <option value="heart">Heart (Cardiac Graft)</option>
+            <option value="kidney">Kidney (Renal Allograft)</option>
+            <option value="liver">Liver (Hepatic Graft)</option>
+            <option value="lung">Lung (Pulmonary Graft)</option>
+          </select>
+        </div>
+
+        <!-- 2. Blood Group -->
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">
+            2. Blood Group <span class="text-theme-emerald">*</span>
+          </label>
+          <select id="intakeBloodGroup" required
+            class="w-full bg-theme-950 border border-theme-700 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-theme-emerald font-mono">
+            <option value="O- POSITIVE">O Negative (O-)</option>
+            <option value="O+ POSITIVE">O Positive (O+)</option>
+            <option value="A- POSITIVE">A Negative (A-)</option>
+            <option value="A+ POSITIVE">A Positive (A+)</option>
+            <option value="B- POSITIVE">B Negative (B-)</option>
+            <option value="B+ POSITIVE">B Positive (B+)</option>
+            <option value="AB- POSITIVE">AB Negative (AB-)</option>
+            <option value="AB+ POSITIVE">AB Positive (AB+)</option>
+          </select>
+        </div>
+
+        <!-- 3. Location of the Donor Organ -->
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">
+            3. Location of the Donor Organ <span class="text-theme-emerald">*</span>
+          </label>
+          <input type="text" id="intakeDonorLocation" required placeholder="e.g. City General Hospital, Recovery ICU Bay 2"
+            value="City General Hospital (Coimbatore) ➔ Apollo Transplant Centre"
+            class="w-full bg-theme-950 border border-theme-700 rounded-xl px-4 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-theme-emerald font-mono" />
+        </div>
+
+        <div class="bg-theme-950/80 p-3 rounded-xl border border-theme-800 text-[11px] font-mono text-slate-400 space-y-1">
+          <div class="flex justify-between">
+            <span>SCANNED RFID TAG:</span>
+            <span class="text-theme-emerald font-bold" id="modalTagDisplay">RFID-9942-HRT</span>
+          </div>
+          <div class="flex justify-between">
+            <span>TARGET CRYO TEMP:</span>
+            <span class="text-theme-cyan font-bold">2.0°C (±0.5°C)</span>
+          </div>
+        </div>
+
+        <button type="submit"
+          class="w-full py-3 px-4 bg-gradient-to-r from-theme-emerald to-theme-teal hover:from-emerald-400 hover:to-teal-400 text-theme-950 font-bold rounded-xl shadow-lg shadow-theme-emerald/20 transition transform active:scale-98 flex items-center justify-center gap-2">
+          <i data-lucide="check-circle" class="w-4 h-4"></i>
+          <span>CONFIRM INTAKE & INITIALIZE CRYO LOG</span>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- 3. MAIN HEADER & TOP-RIGHT USER PROFILE                                   -->
   <!-- ========================================================================= -->
   <header class="sticky top-0 z-40 bg-theme-950/90 backdrop-blur-md border-b border-theme-800 px-4 lg:px-8 py-3">
     <div class="max-w-7xl mx-auto flex items-center justify-between">
@@ -159,6 +241,10 @@
           <button onclick="switchView('dashboard')" id="nav-dashboard"
             class="px-4 py-1.5 rounded-lg text-xs font-semibold transition flex items-center gap-1.5 bg-theme-emerald text-theme-950 shadow font-bold">
             <i data-lucide="layout-dashboard" class="w-3.5 h-3.5"></i> Dashboard
+          </button>
+          <button onclick="openIntakeModal()"
+            class="px-3.5 py-1.5 rounded-lg text-xs font-semibold text-theme-emerald hover:bg-theme-800 transition flex items-center gap-1.5 border border-theme-emerald/30">
+            <i data-lucide="scan" class="w-3.5 h-3.5"></i> Scan & Register Organ
           </button>
           <button onclick="switchView('about')" id="nav-about"
             class="px-4 py-1.5 rounded-lg text-xs font-semibold text-slate-300 hover:text-white hover:bg-theme-800 transition flex items-center gap-1.5">
@@ -207,7 +293,7 @@
               </span>
             </div>
             <div class="py-1 text-xs text-slate-300">
-              <a href="#" class="flex items-center gap-2 px-4 py-2 hover:bg-theme-800"><i data-lucide="shield" class="w-4 h-4 text-theme-emerald"></i> Security Clearance Level 3</a>
+              <a href="#" onclick="openIntakeModal()" class="flex items-center gap-2 px-4 py-2 hover:bg-theme-800 text-theme-emerald"><i data-lucide="scan" class="w-4 h-4"></i> Register Scanned Organ</a>
               <a href="#" class="flex items-center gap-2 px-4 py-2 hover:bg-theme-800"><i data-lucide="cpu" class="w-4 h-4 text-theme-emerald"></i> Paired VEGA ET1031 Board</a>
               <a href="#" class="flex items-center gap-2 px-4 py-2 hover:bg-theme-800"><i data-lucide="file-text" class="w-4 h-4 text-theme-emerald"></i> Cryptographic Audit Trail</a>
             </div>
@@ -224,7 +310,7 @@
   </header>
 
   <!-- ========================================================================= -->
-  <!-- 3. VIEW CONTAINER                                                         -->
+  <!-- 4. VIEW CONTAINER                                                         -->
   <!-- ========================================================================= -->
   <main class="max-w-7xl mx-auto p-4 lg:p-8 space-y-6">
 
@@ -242,23 +328,26 @@
           <div>
             <div class="flex items-center gap-2">
               <span class="w-2.5 h-2.5 rounded-full bg-theme-emerald animate-ping"></span>
-              <h2 class="text-sm font-black tracking-wider uppercase text-white">3D Micro-Dotted Organ Cryo-Chamber</h2>
+              <h2 class="text-sm font-black tracking-wider uppercase text-white">Realistic 3D Anatomical Organ Chamber</h2>
             </div>
-            <p class="text-[11px] text-theme-emerald font-mono" id="organNameDisplay">HUMAN CARDIAC GRAFT (HEART) • DOTTED MATRIX</p>
+            <p class="text-[11px] text-theme-emerald font-mono" id="organNameDisplay">HUMAN CARDIAC GRAFT (HEART) • ANATOMICAL PARTICLES</p>
           </div>
           
-          <!-- Organ Scanner Dropdown -->
-          <div class="flex items-center gap-2 bg-theme-950/90 p-1.5 rounded-2xl border border-theme-700">
-            <label class="text-[10px] font-mono uppercase text-slate-400 px-2 flex items-center gap-1">
-              <i data-lucide="scan-line" class="w-3.5 h-3.5 text-theme-emerald"></i> Scan Organ:
-            </label>
-            <select id="organSelector" onchange="changeOrgan(this.value)"
-              class="bg-theme-900 border border-theme-700 text-xs text-white rounded-xl px-3 py-1 font-mono focus:outline-none focus:border-theme-emerald">
-              <option value="heart">Heart (Cardiac Graft)</option>
-              <option value="kidney">Kidney (Renal Allograft)</option>
-              <option value="liver">Liver (Hepatic Graft)</option>
-              <option value="lung">Lung (Pulmonary Graft)</option>
-            </select>
+          <!-- Organ Scanner & Quick Action Button -->
+          <div class="flex items-center gap-3">
+            <button onclick="openIntakeModal()"
+              class="px-3.5 py-1.5 bg-theme-emerald/20 hover:bg-theme-emerald/30 border border-theme-emerald/40 text-theme-emerald rounded-xl text-xs font-mono font-bold flex items-center gap-1.5 transition">
+              <i data-lucide="scan-line" class="w-4 h-4"></i> Register / Scan RFID
+            </button>
+            <div class="flex items-center gap-2 bg-theme-950/90 p-1.5 rounded-2xl border border-theme-700">
+              <select id="organSelector" onchange="changeOrgan(this.value)"
+                class="bg-theme-900 border border-theme-700 text-xs text-white rounded-xl px-3 py-1 font-mono focus:outline-none focus:border-theme-emerald">
+                <option value="heart">Heart (Cardiac Graft)</option>
+                <option value="kidney">Kidney (Renal Allograft)</option>
+                <option value="liver">Liver (Hepatic Graft)</option>
+                <option value="lung">Lung (Pulmonary Graft)</option>
+              </select>
+            </div>
           </div>
         </div>
 
@@ -270,6 +359,7 @@
           <div class="absolute bottom-4 left-4 bg-theme-950/90 backdrop-blur-md px-3.5 py-2 rounded-xl border border-theme-800 text-[11px] font-mono text-slate-300 space-y-0.5">
             <div>RFID IDENTIFIER: <span class="text-theme-emerald font-bold" id="organTagDisplay">RFID-9942-HRT</span></div>
             <div>STATUS: <span class="text-theme-cyan font-bold">CRYOGENIC PRESERVATION ACTIVE</span></div>
+            <div>DONOR LOCATION: <span class="text-slate-200" id="donorLocationHUD">City General Hospital ➔ Apollo Transplant</span></div>
           </div>
 
           <div class="absolute bottom-4 right-4 bg-theme-950/90 backdrop-blur-md px-4 py-2 rounded-xl border border-theme-800 text-[11px] font-mono text-right text-slate-300">
@@ -278,14 +368,14 @@
           </div>
 
           <div class="absolute top-4 left-4 text-[10px] font-mono text-slate-500">
-            Interactive 3D Micro-Point Cloud • Click and drag to rotate • Scroll to zoom
+            Anatomical 3D Point-Cloud • Realistic Ventricles, Aorta & Sulcus • Drag to rotate
           </div>
         </div>
 
-        <!-- Bottom Organ Quick Specs Bar (Clean 3-Item Layout) -->
+        <!-- Bottom Organ Quick Specs Bar (3-Column Layout) -->
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-3 border-t border-theme-800 text-xs font-mono relative z-10">
           <div class="bg-theme-950/70 p-3 rounded-2xl border border-theme-800">
-            <span class="text-[10px] text-slate-400 block mb-0.5">DONOR MATCH</span>
+            <span class="text-[10px] text-slate-400 block mb-0.5">DONOR BLOOD GROUP</span>
             <span class="text-white font-bold text-sm" id="donorMatchDisplay">O- POSITIVE</span>
           </div>
           <div class="bg-theme-950/70 p-3 rounded-2xl border border-theme-800">
@@ -790,14 +880,13 @@
   </main>
 
   <!-- ========================================================================= -->
-  <!-- 4. JAVASCRIPT: 3D MICRO-DOTTED POINT CLOUD ORGAN ENGINE & TELEMETRY       -->
+  <!-- 5. JAVASCRIPT: 3D ANATOMICAL PARTICLE CLOUD ENGINE & LOGIC                -->
   <!-- ========================================================================= -->
   <script>
-    // Initialize Lucide Icons
     lucide.createIcons();
 
     // -------------------------------------------------------------------------
-    // View Switching & Profile Dropdown
+    // View & Modal Handlers
     // -------------------------------------------------------------------------
     function switchView(viewId) {
       ['dashboard', 'about', 'services', 'contact'].forEach(v => {
@@ -816,13 +905,22 @@
 
       const targetView = document.getElementById(`view-${viewId}`);
       if (targetView) targetView.classList.remove('hidden');
-
       lucide.createIcons();
     }
 
     function toggleProfileMenu() {
-      const drop = document.getElementById('profileDropdown');
-      drop.classList.toggle('hidden');
+      document.getElementById('profileDropdown').classList.toggle('hidden');
+    }
+
+    function openIntakeModal() {
+      document.getElementById('profileDropdown').classList.add('hidden');
+      document.getElementById('organIntakeModal').classList.remove('hidden');
+      document.getElementById('organIntakeModal').classList.add('flex');
+    }
+
+    function closeIntakeModal() {
+      document.getElementById('organIntakeModal').classList.add('hidden');
+      document.getElementById('organIntakeModal').classList.remove('flex');
     }
 
     function handleLogin(e) {
@@ -853,21 +951,42 @@
     }
 
     // -------------------------------------------------------------------------
+    // Organ Intake Registration Handler (3 Questions Flow)
+    // -------------------------------------------------------------------------
+    function handleOrganIntake(e) {
+      e.preventDefault();
+      const organType = document.getElementById('intakeOrganType').value;
+      const bloodGroup = document.getElementById('intakeBloodGroup').value;
+      const donorLocation = document.getElementById('intakeDonorLocation').value;
+
+      // Update dashboard values
+      document.getElementById('organSelector').value = organType;
+      changeOrgan(organType);
+      
+      document.getElementById('donorMatchDisplay').innerText = bloodGroup;
+      document.getElementById('donorLocationHUD').innerText = donorLocation;
+
+      closeIntakeModal();
+      switchView('dashboard');
+
+      addLogEntry('RFID_INTAKE', `Payload Registered: ${organType.toUpperCase()} | Blood: ${bloodGroup} | Location: ${donorLocation}`);
+      alert(`✅ Organ Registered Successfully!\n\n• Type: ${organType.toUpperCase()}\n• Blood Group: ${bloodGroup}\n• Donor Location: ${donorLocation}\n\nPreservation locked at 2.0°C.`);
+    }
+
+    // -------------------------------------------------------------------------
     // Organ Specifications Database
     // -------------------------------------------------------------------------
     const ORGAN_DATA = {
       heart: {
         name: 'HUMAN CARDIAC GRAFT (HEART)',
         tag: 'RFID-9942-HRT',
-        donor: 'O- POSITIVE',
         ischemicLimit: '4.0 - 6.0 HRS',
-        color: 0x00F5A0, // Dotted Emerald Neon
+        color: 0x00F5A0,
         secondaryColor: 0x38E1FF
       },
       kidney: {
         name: 'HUMAN RENAL ALLOGRAFT (KIDNEY)',
         tag: 'RFID-7718-KDN',
-        donor: 'A+ POSITIVE',
         ischemicLimit: '24.0 - 36.0 HRS',
         color: 0x00F5A0,
         secondaryColor: 0xF59E0B
@@ -875,7 +994,6 @@
       liver: {
         name: 'HUMAN HEPATIC GRAFT (LIVER)',
         tag: 'RFID-5521-LVR',
-        donor: 'B+ POSITIVE',
         ischemicLimit: '8.0 - 12.0 HRS',
         color: 0x00F5A0,
         secondaryColor: 0x10B981
@@ -883,7 +1001,6 @@
       lung: {
         name: 'HUMAN PULMONARY GRAFT (LUNG)',
         tag: 'RFID-3382-LNG',
-        donor: 'AB+ POSITIVE',
         ischemicLimit: '6.0 - 8.0 HRS',
         color: 0x38E1FF,
         secondaryColor: 0x00F5A0
@@ -896,17 +1013,17 @@
       currentOrgan = organKey;
       const data = ORGAN_DATA[organKey];
       
-      document.getElementById('organNameDisplay').innerText = `${data.name} • DOTTED MATRIX`;
+      document.getElementById('organNameDisplay').innerText = `${data.name} • ANATOMICAL PARTICLES`;
       document.getElementById('organTagDisplay').innerText = data.tag;
-      document.getElementById('donorMatchDisplay').innerText = data.donor;
+      document.getElementById('modalTagDisplay').innerText = data.tag;
       document.getElementById('ischemicLimitDisplay').innerText = data.ischemicLimit;
 
-      buildMicroDottedOrgan(organKey);
-      addLogEntry('RFID_SCAN', `Scanned organ tag verified: ${data.name} [${data.tag}]`);
+      buildRealisticAnatomicalOrgan(organKey);
+      addLogEntry('RFID_SCAN', `Scanned organ tag: ${data.name} [${data.tag}]`);
     }
 
     // -------------------------------------------------------------------------
-    // Realistic 3D Micro-Dotted Particle Cloud Engine (Three.js)
+    // Ultra-Realistic 3D Anatomical Micro-Particle Engine (Three.js)
     // -------------------------------------------------------------------------
     let scene, camera, renderer, controls, organPointCloud, organParticleGroup;
 
@@ -919,7 +1036,7 @@
       scene.background = new THREE.Color(0x030a08);
 
       camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
-      camera.position.set(0, 3, 24);
+      camera.position.set(0, 2.5, 24);
 
       renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
       renderer.setSize(width, height);
@@ -929,26 +1046,26 @@
       controls = new THREE.OrbitControls(camera, renderer.domElement);
       controls.enableDamping = true;
       controls.dampingFactor = 0.05;
-      controls.maxDistance = 40;
+      controls.maxDistance = 42;
       controls.minDistance = 8;
 
-      // Lights
-      const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
+      // Lighting
+      const ambientLight = new THREE.AmbientLight(0xffffff, 0.85);
       scene.add(ambientLight);
 
-      const dirLight = new THREE.DirectionalLight(0x00f5a0, 1.5);
+      const dirLight = new THREE.DirectionalLight(0x00f5a0, 1.6);
       dirLight.position.set(10, 20, 15);
       scene.add(dirLight);
 
       // Cryo chamber grid floor
-      const grid = new THREE.GridHelper(26, 26, 0x00f5a0, 0x0e2c22);
+      const grid = new THREE.GridHelper(28, 28, 0x00f5a0, 0x0e2c22);
       grid.position.y = -6.5;
       scene.add(grid);
 
       organParticleGroup = new THREE.Group();
       scene.add(organParticleGroup);
 
-      buildMicroDottedOrgan('heart');
+      buildRealisticAnatomicalOrgan('heart');
 
       window.addEventListener('resize', onWindowResize);
       animate();
@@ -962,8 +1079,8 @@
       renderer.setSize(container.clientWidth, container.clientHeight);
     }
 
-    // Procedural Realistic Micro-Dotted Mesh Builder
-    function buildMicroDottedOrgan(type) {
+    // Realistic Anatomical 3D Mesh Generator
+    function buildRealisticAnatomicalOrgan(type) {
       while (organParticleGroup.children.length > 0) {
         const obj = organParticleGroup.children[0];
         if (obj.geometry) obj.geometry.dispose();
@@ -978,39 +1095,80 @@
       const accentColor = new THREE.Color(organConfig.secondaryColor);
 
       if (type === 'heart') {
-        // High-Density Micro-Dotted Anatomical Cardiac Geometry (4800+ micro-dots)
-        for (let i = 0; i < 4800; i++) {
+        // 1. Left & Right Ventricles + Muscular Apex (3,800 particles)
+        for (let i = 0; i < 3800; i++) {
           const u = Math.random() * Math.PI * 2;
           const v = Math.random() * Math.PI;
-          const r = Math.pow(Math.random(), 0.3) * 4.2;
+          const r = Math.pow(Math.random(), 0.35) * 3.8;
 
-          let x = 16 * Math.pow(Math.sin(u), 3) * (r / 4.2) * 0.28;
-          let y = (13 * Math.cos(u) - 5 * Math.cos(2*u) - 2 * Math.cos(3*u) - Math.cos(4*u)) * (r / 4.2) * 0.28;
-          let z = (Math.cos(v) * 2.8) * (1.0 - Math.abs(y)/6.0);
+          // Anatomical cardiac equation with apex tilt and interventricular groove
+          let x = 16 * Math.pow(Math.sin(u), 3) * (r / 3.8) * 0.27;
+          let y = (13 * Math.cos(u) - 5 * Math.cos(2*u) - 2 * Math.cos(3*u) - Math.cos(4*u)) * (r / 3.8) * 0.27;
+          let z = (Math.cos(v) * 2.8) * (1.0 - Math.abs(y)/5.5);
 
-          x += Math.sin(y * 0.2) * 0.5;
+          // Apex tilt (left and anterior)
+          x -= y * 0.15;
           points.push(x, y, z);
 
-          const lerpVal = (y + 4) / 8;
-          const c = primaryColor.clone().lerp(accentColor, lerpVal);
+          const c = primaryColor.clone().lerp(accentColor, (y + 3.5) / 7.0);
           colors.push(c.r, c.g, c.b);
         }
 
-        // Ascending Aorta Arch & Arterial Branches
-        for (let i = 0; i < 800; i++) {
-          const theta = Math.random() * Math.PI * 2;
-          const t = Math.random() * 3.5;
-          const rad = 0.7 + Math.random() * 0.2;
-          const x = Math.cos(theta) * rad + Math.sin(t * 0.8) * 1.2;
-          const y = 3.2 + t;
-          const z = Math.sin(theta) * rad - (t * 0.4);
+        // 2. Left & Right Atria Auricles (1,200 particles)
+        for (let side of [-1.2, 1.2]) {
+          for (let i = 0; i < 600; i++) {
+            const u = Math.random() * Math.PI * 2;
+            const v = (Math.random() - 0.5) * Math.PI;
+            const rad = 1.3 * Math.pow(Math.random(), 0.5);
+
+            const x = Math.cos(u) * Math.cos(v) * rad + side;
+            const y = Math.sin(v) * rad * 0.9 + 2.2;
+            const z = Math.sin(u) * Math.cos(v) * rad - 0.4;
+
+            points.push(x, y, z);
+            colors.push(primaryColor.r, primaryColor.g, primaryColor.b);
+          }
+        }
+
+        // 3. Ascending Aorta & Curved Aortic Arch with 3 Branch Arteries (900 particles)
+        for (let i = 0; i < 700; i++) {
+          const t = Math.random() * Math.PI * 0.9;
+          const rad = 0.55 + Math.random() * 0.15;
+          const ang = Math.random() * Math.PI * 2;
+
+          // Torus arch curve
+          const archR = 1.8;
+          let x = (archR + rad * Math.cos(ang)) * Math.cos(t) - 0.5;
+          let y = (archR + rad * Math.cos(ang)) * Math.sin(t) + 2.6;
+          let z = rad * Math.sin(ang);
+
           points.push(x, y, z);
+          colors.push(accentColor.r, accentColor.g, accentColor.b);
+        }
+
+        // 3 Arterial branches on arch (Brachiocephalic, Left Common Carotid, Left Subclavian)
+        for (let offset of [-0.6, 0.0, 0.6]) {
+          for (let i = 0; i < 80; i++) {
+            const h = Math.random() * 1.4;
+            const ang = Math.random() * Math.PI * 2;
+            const r = 0.2;
+            points.push(offset + Math.cos(ang)*r, 4.2 + h, Math.sin(ang)*r);
+            colors.push(accentColor.r, accentColor.g, accentColor.b);
+          }
+        }
+
+        // 4. Pulmonary Trunk & Superior Vena Cava (600 particles)
+        for (let i = 0; i < 600; i++) {
+          const h = Math.random() * 2.8;
+          const ang = Math.random() * Math.PI * 2;
+          const r = 0.45;
+          points.push(1.4 + Math.cos(ang)*r, 1.8 + h, -0.6 + Math.sin(ang)*r);
           colors.push(accentColor.r, accentColor.g, accentColor.b);
         }
       } 
       else if (type === 'kidney') {
-        // Realistic Renal Allograft Bean Geometry (4200+ micro-dots)
-        for (let i = 0; i < 4200; i++) {
+        // Anatomical Renal Allograft Bean Geometry (4,500 particles)
+        for (let i = 0; i < 4500; i++) {
           const theta = Math.random() * Math.PI * 2;
           const phi = (Math.random() - 0.5) * Math.PI;
           const rad = 4.0 * Math.pow(Math.random(), 0.3);
@@ -1019,62 +1177,60 @@
           let y = Math.sin(phi) * rad * 1.4;
           let z = Math.sin(theta) * Math.cos(phi) * rad * 0.65;
 
+          // True Medial Hilum notch
           if (x < 0) {
-            const indent = Math.exp(-(y*y)/4 - (z*z)/4) * 1.6;
+            const indent = Math.exp(-(y*y)/4.5 - (z*z)/4.5) * 1.6;
             x += indent;
           }
 
           points.push(x, y, z);
-          const lerpVal = (x + 3) / 6;
-          const c = primaryColor.clone().lerp(accentColor, lerpVal);
+          const c = primaryColor.clone().lerp(accentColor, (x + 3) / 6);
           colors.push(c.r, c.g, c.b);
         }
 
-        // Renal Artery, Vein & Ureter
-        for (let i = 0; i < 600; i++) {
-          const t = Math.random() * 2.5;
-          const rad = 0.4;
+        // Renal Artery, Vein and Descending Ureter
+        for (let i = 0; i < 800; i++) {
+          const t = Math.random() * 3.0;
           const ang = Math.random() * Math.PI * 2;
-          const x = -1.2 - t;
-          const y = Math.sin(ang) * rad + (t * 0.3);
-          const z = Math.cos(ang) * rad;
-          points.push(x, y, z);
+          const r = 0.35;
+          points.push(-1.0 - t, Math.sin(ang)*r + (t * 0.2), Math.cos(ang)*r);
           colors.push(accentColor.r, accentColor.g, accentColor.b);
         }
       } 
       else if (type === 'liver') {
-        // Realistic Hepatic Wedge Lobes (4500+ micro-dots)
-        for (let i = 0; i < 4500; i++) {
+        // Anatomical Hepatic Lobes (4,800 particles)
+        for (let i = 0; i < 4800; i++) {
           const u = Math.random();
           const v = Math.random();
           const w = Math.random();
 
-          let x = (u - 0.5) * 8.5;
-          let y = (v - 0.5) * 5.5;
-          let z = (w - 0.5) * 4.5;
+          let x = (u - 0.5) * 9.0;
+          let y = (v - 0.5) * 5.8;
+          let z = (w - 0.5) * 4.8;
 
-          if (x*x/18 + y*y/8 + z*z/6 < 1.0 && (y + z * 0.5 < 1.8) && (x < 0 || (x > 0 && y > -1.8))) {
+          // Hepatic asymmetric wedge formula
+          if (x*x/20 + y*y/9 + z*z/7 < 1.0 && (y + z * 0.5 < 2.0) && (x < 0 || (x > 0 && y > -2.0))) {
             points.push(x, y, z);
-            const lerpVal = (x + 4) / 8;
-            const c = primaryColor.clone().lerp(accentColor, lerpVal);
+            const c = primaryColor.clone().lerp(accentColor, (x + 4.5) / 9.0);
             colors.push(c.r, c.g, c.b);
           }
         }
       } 
       else if (type === 'lung') {
-        // Realistic Bilateral Multi-Lobe Pulmonary Tree (5000+ micro-dots)
-        for (let side of [-2.8, 2.8]) {
-          for (let i = 0; i < 2200; i++) {
+        // Bilateral Pulmonary Lobes (3 Right, 2 Left with cardiac notch) (5,200 particles)
+        for (let side of [-3.0, 3.0]) {
+          for (let i = 0; i < 2300; i++) {
             const theta = Math.random() * Math.PI * 2;
             const phi = (Math.random() - 0.5) * Math.PI;
             const rad = 3.6 * Math.pow(Math.random(), 0.3);
 
-            let x = Math.cos(theta) * Math.cos(phi) * rad * 0.7 + side;
-            let y = Math.sin(phi) * rad * 1.3 - 0.5;
-            let z = Math.sin(theta) * Math.cos(phi) * rad * 0.6;
+            let x = Math.cos(theta) * Math.cos(phi) * rad * 0.72 + side;
+            let y = Math.sin(phi) * rad * 1.35 - 0.5;
+            let z = Math.sin(theta) * Math.cos(phi) * rad * 0.62;
 
-            if ((side < 0 && x > side + 0.8) || (side > 0 && x < side - 0.8)) {
-              x += (side < 0 ? -0.4 : 0.4);
+            // Concave mediastinal cardiac notch on left lung
+            if (side > 0 && x < side - 0.6 && Math.abs(y) < 1.5) {
+              x += 0.5;
             }
 
             points.push(x, y, z);
@@ -1083,16 +1239,16 @@
           }
         }
 
-        // Trachea & Bronchial Tree
+        // Trachea & Bronchial Tree with Carina
         for (let i = 0; i < 600; i++) {
-          const t = Math.random() * 3.5;
+          const t = Math.random() * 3.6;
           const ang = Math.random() * Math.PI * 2;
           const rad = 0.45;
           let x = Math.cos(ang) * rad;
           let y = 1.8 + t;
           let z = Math.sin(ang) * rad;
-          if (t < 1.2) {
-            x += (Math.random() > 0.5 ? 1 : -1) * (1.2 - t);
+          if (t < 1.4) {
+            x += (Math.random() > 0.5 ? 1.2 : -1.2) * (1.4 - t);
           }
           points.push(x, y, z);
           colors.push(accentColor.r, accentColor.g, accentColor.b);
@@ -1104,10 +1260,10 @@
       geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
 
       const material = new THREE.PointsMaterial({
-        size: 0.11,
+        size: 0.115,
         vertexColors: true,
         transparent: true,
-        opacity: 0.88,
+        opacity: 0.90,
         blending: THREE.AdditiveBlending
       });
 
@@ -1122,16 +1278,17 @@
       const elapsedTime = clock.getElapsedTime();
 
       if (organParticleGroup) {
-        organParticleGroup.position.y = Math.sin(elapsedTime * 1.8) * 0.4;
-        organParticleGroup.rotation.y = elapsedTime * 0.4;
+        organParticleGroup.position.y = Math.sin(elapsedTime * 1.8) * 0.35;
+        organParticleGroup.rotation.y = elapsedTime * 0.38;
 
         let scale = 1.0;
         if (currentOrgan === 'heart') {
-          scale = 1.0 + Math.pow(Math.sin(elapsedTime * 5.0), 12) * 0.09 + Math.pow(Math.sin(elapsedTime * 5.0 - 0.4), 12) * 0.04;
+          // Double-thump realistic sinus rhythm (Atrial kick + Ventricular ejection)
+          scale = 1.0 + Math.pow(Math.sin(elapsedTime * 4.8), 12) * 0.08 + Math.pow(Math.sin(elapsedTime * 4.8 - 0.35), 12) * 0.04;
         } else if (currentOrgan === 'lung') {
-          scale = 1.0 + Math.sin(elapsedTime * 2.2) * 0.07;
+          scale = 1.0 + Math.sin(elapsedTime * 2.0) * 0.06;
         } else {
-          scale = 1.0 + Math.sin(elapsedTime * 2.5) * 0.02;
+          scale = 1.0 + Math.sin(elapsedTime * 2.4) * 0.02;
         }
         organParticleGroup.scale.set(scale, scale, scale);
       }
@@ -1226,7 +1383,7 @@
       let badgeColor = 'text-theme-emerald';
       if (type === 'WATCHDOG') badgeColor = 'text-theme-cyan';
       if (type === 'ALERT') badgeColor = 'text-rose-400';
-      if (type === 'RFID_SCAN') badgeColor = 'text-amber-400';
+      if (type === 'RFID_SCAN' || type === 'RFID_INTAKE') badgeColor = 'text-amber-400';
 
       entry.innerHTML = `
         <span class="text-slate-500">${timeStr}</span>
